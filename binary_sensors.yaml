@@ -1,0 +1,15 @@
+  - platform: mqtt
+    state_topic: 'Picasso/Arduino/Gateway/1'
+    name: 'Arduino Gateway 1'
+    value_template: '{{ value_json.status }}'
+    device_Class: connectivity
+  - platform: mqtt
+    state_topic: 'Picasso/Id2_P/Alive'
+    name: 'Weather Station 2'
+    value_template: '{{ value_json.status }}'
+    device_Class: connectivity
+  - platform: mqtt
+    state_topic: 'Picasso/Id1_P/Alive'
+    name: 'Weather Station 1'
+    value_template: '{{ value_json.status }}'
+    device_Class: connectivity

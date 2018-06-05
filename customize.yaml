@@ -1,0 +1,19 @@
+    #binary_sensor.floorplan
+      #custom_ui_state_card: state-card-floorplan
+      #config: !include floorplan_0.yaml
+    #  device_tracker.f41ba18057c6:
+    #    entity_picture: /local/apple.png
+    #    friendly_name: iPad Carlos
+    #  device_tracker.38d5473d4ef9:
+    #    entity_picture: /local/carlos.png
+    #    friendly_name: Asus Carlos
+    #  device_tracker.704d7bae3628:
+    #    entity_picture: /local/marian.png
+    #    friendly_name: Asus Marian
+    #  device_tracker.24920e0707d8:
+    #    entity_picture: /local/carlos.png
+    #    friendly_name: Samsung Carlos
+    #  device_tracker.24920e1ea776:
+    #    entity_picture: /local/marian.png
+    #    friendly_name: Samsung Marian
+       

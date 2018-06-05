@@ -1,0 +1,147 @@
+#========================================
+# CONFIGURACION DE INSTALACION           
+#========================================
+homeassistant:
+  name: Picasso
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: 17
+  unit_system: metric
+  time_zone: Europe/Madrid
+  customize: !include customize.yaml
+
+homekit:
+  pincode: !secret pincode
+
+mqtt:
+  broker: !secret mqtt_ip
+  port: !secret mqtt_port
+  client_id: home_assistant-2
+  username: !secret mqtt_user
+  password: !secret mqtt_password
+  #certificate: /ssl/fullchain.pem
+
+http:
+  api_password: !secret http_password
+  base_url: !secret base_url
+  login_attempts_threshold: 5
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+  
+tts:
+  - platform: google
+    language: 'es'
+
+device_tracker:
+  - platform: nmap_tracker
+    track_new_devices: True
+    interval_seconds: 300 # devide_Tracker... segundos entre escaneos
+    consider_home: 300 # Tiempo de desconexión antes de considerar que está fuera.
+    hosts: 192.168.2.101-149
+    home_interval: 10 # No lo escanea para preservar batería
+    scan_options: " --privileged -sP -F --host-timeout 5s "
+#    consider_home: 0:05:00
+  - platform: bluetooth_tracker
+    track_new_devices: True
+    interval_seconds: 300
+    consider_home: 300
+#  - platform: bluetooth_le_tracker
+#    track_new_devices: True
+#    interval_seconds: 12
+#    scan_duration: 10
+  - platform: owntracks
+    max_gps_accuracy: 200
+#    waypoints: True
+    mqtt_topic: "owntracks/#"
+#    events_only: True
+#    waypoint_whitelist:
+#      - carlos
+#      - marian
+#    region_mapping:
+#      cabin: home
+#      office: work
+camera:
+  - platform: generic
+    name: Salón
+    still_image_url: !secret camera_ip
+    username: !secret camera_user
+    password: !secret camera_password
+
+updater:
+  include_used_components: true
+
+frontend:
+    themes: !include_dir_merge_named themes/
+#    extra_html_url:
+#      - /local/custom_ui/state-card-floorplan.html
+
+recorder:
+  purge_keep_days: 10
+  exclude:
+    domains:
+      - darksky
+      - yr
+      - yweather
+    entities:
+      - sun.sun
+
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: http://hassio.local:3218
+  terminal:
+    title: Terminal
+    icon: mdi:console
+    url: http://hassio.local:7681
+
+history_graph:
+  gr1:
+    entities:
+      - sensor.yr_temperature
+
+#========================================
+# INCLUDES                               
+#========================================
+cover: !include covers.yaml
+group: !include groups.yaml
+sensor: !include sensors.yaml
+media_player: !include media_players.yaml
+notify: !include notifiers.yaml
+automation: !include automations.yaml
+zone: !include zones.yaml
+switch: !include switches.yaml
+binary_sensor: !include binary_sensors.yaml
+scene: !include scenes.yaml
+input_number: !include input_number.yaml
+input_boolean: !include input_boolean.yaml
+#tradfri: !include tradfri.yaml
+panel_custom: !include panel_custom.yaml
+
+#========================================
+# DISABLES                                
+#========================================
+# Cloud disabled
+cloud:
+#introduction:
+
+#========================================
+# ENABLES                                
+#========================================
+# Enables a map showing the location of tracked devices
+map:
+ios:
+config:
+discovery:
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+  # boolean_test:
+    # sentence: switch boolean_test
+    # action:
+      # service:input_boolean.toggle    
+history:
+logbook:
+# Track the sun
+sun:

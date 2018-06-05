@@ -1,0 +1,332 @@
+- alias: Apagar luces niños
+  id: Lights_Off_1
+  trigger:
+  - platform: time
+    at: '22:30:00'
+  action:
+  - service: light.turn_off
+    entity_id: light.ninos
+- alias: Mantener luces apagadas
+  id: Lights_Off_2
+  trigger:
+  - platform: time
+    minutes: /15
+    seconds: 0
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      after: '22:30:00'
+      before: 07:30:00
+    - condition: state
+      entity_id: input_boolean.autooff
+      state: 'on'
+  action:
+  - service: light.turn_off
+    entity_id: light.ninos
+- alias: Set theme at startup
+  id: Theme_startup
+  initial_state: 'on'
+  trigger:
+  - platform: homeassistant
+    event: start
+  action:
+    service: frontend.set_theme
+    data:
+      name: default
+- alias: Set dark theme for the night
+  id: Theme_night
+  initial_state: true
+  trigger:
+  - platform: time
+    at: '21:00'
+  action:
+  - service: frontend.set_theme
+    data:
+      name: crs_audi
+- alias: Set dark theme for the day
+  id: Theme_day
+  initial_state: true
+  trigger:
+  - platform: time
+    at: '8:00'
+  action:
+  - service: frontend.set_theme
+    data:
+      name: default
+- alias: Encender árbol Navidad laborables
+  id: Encender_Arbol_lab
+  trigger:
+    platform: time
+    at: '18:30:00'
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+    service: switch.turn_on
+    entity_id:
+    - switch.arbol
+- alias: Encender árbol Navidad fin de semana
+  id: Encender_Arbol_finde
+  trigger:
+    platform: time
+    at: '17:30:00'
+  condition:
+  - condition: time
+    weekday:
+    - sat
+    - sun
+  action:
+    service: switch.turn_on
+    entity_id:
+    - switch.arbol
+- alias: Apagar árbol Navidad
+  id: Apagar_Arbol
+  trigger:
+    platform: time
+    at: '22:00:00'
+  action:
+    service: switch.turn_off
+    entity_id:
+    - switch.arbol
+- alias: Bajar persianas de noche
+  id: Persianas_Bajas
+  trigger:
+    platform: sun
+    event: sunset
+    offset: 00:05:00
+  action:
+    service: cover.close_cover
+    entity_id:
+    - cover.salon_puerta_pasillo
+    - cover.salon_ventana_pasillo
+    - cover.salon_ventana_sofa
+    - cover.suite
+    - cover.cocina
+    - cover.despacho
+    - cover.eider
+    - cover.june
+    - cover.ibai
+    - cover.bano_lavabo
+    - cover.bano_puerta
+- id: Persianas_lluvia
+  alias: Bajar persianas con lluvia
+  trigger:
+#  - entity_id: sensor.prevision_precip_intensity
+    entity_id: sensor.yr_precipitation
+    platform: state
+    from: '0.0'
+  action:
+  - data:
+      entity_id:
+      - cover.salon_puerta_pasillo
+      - cover.salon_ventana_pasillo
+      - cover.salon_ventana_sofa
+      - cover.suite_vestidor
+      - cover.suite_derecha
+      - cover.suite_izquierda
+      - cover.suite_central
+      - cover.bano_lavabo
+      - cover.bano_puerta
+      - cover.cocina
+      - cover.eider
+    service: cover.close_cover
+  - data:
+      message: ¡Está lloviendo en casa! Yo bajo las persianas, tú recoge la ropa.
+      title: HomeAssistant
+    service: notify.pushbullet
+- alias: Desconectar TV Suite
+  id: TV_Suite_Off
+  trigger:
+    platform: time
+    at: 01:30:00
+  action:
+    service: switch.turn_off
+    entity_id:
+    - switch.suite
+- alias: Conectar TV Suite
+  id: TV_Suite_On
+  trigger:
+    platform: time
+    at: '22:00:00'
+  action:
+    service: switch.turn_on
+    entity_id:
+    - switch.suite
+- alias: Desconectar TV Salón
+  id: TV_Salon_Off
+  trigger:
+    platform: time
+    at: '21:15:00'
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - sun
+  action:
+    service: switch.turn_off
+    entity_id:
+    - switch.salon
+- alias: Desconectar TV Salón fin-de
+  id: TV_Salon_Off
+  trigger:
+    platform: time
+    at: '22:00:00'
+  condition:
+  - condition: time
+    weekday:
+    - fri
+    - sat
+  action:
+    service: switch.turn_off
+    entity_id:
+    - switch.salon
+- alias: Desconectar PC
+  id: PC_Off
+  trigger:
+    platform: time
+    at: '1:00:00'
+  action:
+    service: switch.turn_off
+    entity_id:
+    - switch.despacho
+- alias: Arranque HomeAssistant
+  id: HA_On
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    service: notify.pushbullet
+    data:
+      title: HomeAssistant
+      message: HomeAssistant ON
+- id: Arduino_On
+  alias: Arduino Alive
+  trigger:
+  - entity_id: binary_sensor.arduino_gateway_1
+    from: 'off'
+    platform: state
+    to: 'on'
+  action:
+  - data:
+      data:
+        actions:
+        - action: action_1
+          icon: /static/icons/favicon-192x192.png
+          title: Acción 1
+        - action: action_2
+          icon: /static/icons/favicon-192x192.png
+          title: Acción 2
+      message: Gateway 1 ON
+    service: notify.html5
+  - data:
+      data:
+        message: "Gateway 1 ON"
+    service: notify.pushbullet
+- alias: Weather Station 2 Alive
+  id: Weather2_on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.weather_station_2
+    from: 'off'
+    to: 'on'
+  action:
+  - service: notify.pushbullet
+    data:
+      title: HomeAssistant
+      message: SalasAtmo Despacho ON
+- alias: Weather Station 1 Alive
+  id: Weather1_on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.weather_station_1
+    from: 'off'
+    to: 'on'
+  action:
+    service: notify.pushbullet
+    data:
+      title: HomeAssistant
+      message: SalasAtmo Salón ON
+- alias: Wake Me Up
+  initial_state: 'on'
+  trigger:
+  - platform: time
+    minutes: /1
+    seconds: '0'
+  condition:
+    condition: or
+    conditions:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.alarmstatus
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.alarmweekday
+        state: 'on'
+      - condition: time
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+        - sat
+      - condition: template
+        value_template: '{{ now().time().strftime("%R") == states.sensor.alarm_time.state
+          }}'
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.alarmstatus
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.alarmweekday
+        state: 'off'
+      - condition: template
+        value_template: '{{ now().time().strftime("%R") == states.sensor.alarm_time.state
+          }}'
+  action:
+  - service: tts.google_say
+    data:
+      entity_id: media_player.kodi_suite
+      message: Good morning Sir. Time to Wake Up!
+  - service: cover.open_cover
+    entity_id:
+    - cover.suite_terraza
+  - delay: 00:00:15
+  - service: cover.stop_cover
+    entity_id:
+    - cover.suite_terraza
+  - service: notify.pushbullet
+    data:
+      title: HomeAssistant
+      message: Alarma ON
+- alias: Turn off Alarm
+  initial_state: 'on'
+  trigger:
+  - platform: time
+    minutes: /1
+    seconds: '0'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.alarmstatus
+      state: 'on'
+    - condition: template
+      value_template: '{{ now().time().strftime("%R") == states.sensor.alarm_time_fin.state
+        }}'
+  action:
+  - service: notify.pushbullet
+    data:
+      title: HomeAssistant
+      message: Alarma OFF

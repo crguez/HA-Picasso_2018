@@ -1,0 +1,14 @@
+*
+!*.yaml
+!*.gif
+!*.jpg
+!*.png
+!themes
+!www
+!appdaemon
+!panels
+!.gitignore
+html5_push_registrations.conf
+secrets.yaml
+zones.yaml
+known_devices.yaml

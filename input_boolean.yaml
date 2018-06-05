@@ -1,0 +1,11 @@
+  alarmstatus:
+    name: Estado Despertador
+    initial: off
+    icon: mdi:alarm
+  alarmweekday:
+    name: Laborables
+    initial: on
+    icon: mdi:calendar
+  autooff:
+    name: Apagado luces auto
+    icon: mdi:camera-timer

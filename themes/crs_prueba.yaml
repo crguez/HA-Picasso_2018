@@ -1,0 +1,67 @@
+crs_prueba:
+  # Main Stuff #
+  primary-color: "#220022" # Primary (most of the UI)
+  light-primary-color: "#440044"
+  dark-primary-color: "#110011"
+  sidebar-text_-_background: "#660066"
+  primary-background-color: "#880088" # Primary background colour (dialogs, e.t.c)
+  secondary-background-color: "#AA00AA" # Secondary background colour (main UI background)
+  primary-text-color: "#CC00CC" # Primary text colour
+  secondary-text-color: "#EE00EE)" # Secondary text colour
+  disabled-text-color: "#000000" # Disabled text colour
+  divider-color: "#FF00FF" # Divider colour
+  accent_color: "#FF55FF"
+  text_primary_color: "#110011"
+
+  # Paper Card #
+  paper-card-background-color: "#222200" # Card background colour
+#  paper-card-header-color: "#444400"
+  paper-card-header-color: "#666600" # Card header text colour
+
+  # Paper Item #
+  paper-item_-_icon-color: "#000022" # Icon colour
+  paper-item-icon-color: "#000044" # Icon colour
+  paper-item-selected_-_background-color: "#000066"
+  paper-item-icon-active-color: "#000088"
+  paper-item-selected-background-color: "#0000AA"
+
+  # Nav Menu #
+  paper-listbox-background-color: "#0000CC" # Listbox background colour
+  paper-listbox-color: "#0000EE" # Listbox text colour
+
+
+  # Sliders #
+  paper-slider-knob-color: "#220000"
+  paper-slider-knob-start-color: "#440000"
+  paper-slider-pin-color: "#660000"
+  paper-slider-active-color: "#880000"
+  paper-slider-secondary-color: "#AA0000"
+  paper-slider-container-color: "#CC0000"
+  paper-slider-disabled-active-color: "#990000"
+  paper-slider-disabled-secondary-color: "#BB0000"
+  
+  paper-progress-secondary-color: "#EE0000"
+
+  # Tables #
+  table-row-background-color: "#222222"
+  table-row-alternative-background-color: "#444444"
+  paper-grey-200: "#666666" # Listbox selected item background colour
+  paper-grey-50: "#888888"
+
+  # Switches #
+  paper-toggle-button-checked-ink-color: "#AAAAAA"
+  paper-toggle-button-checked-button-color: "#CCCCCC"
+  paper-toggle-button-checked-bar-color: "#EEEEEE"
+  paper-toggle-button-unchecked-ink-color: "#777777"
+  paper-toggle-button-unchecked-button-color: "#BBBBBB"
+  paper-toggle-button-unchecked-bar-color: "#DDDDDD"
+
+  # Label badge
+  label-badge-background-color: "#002200"
+  label-badge-text-color: "#004400"
+  label-badge-red: "#006600"
+  label-badge-blue: "#008800"
+  label-badge-green: "#00AA00"
+  label-badge-yellow: "#00CC00"
+  label-badge-grey: "#00EE00"
+  label-badge-border-color: "#00FF00"

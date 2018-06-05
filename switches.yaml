@@ -1,0 +1,68 @@
+  - platform: mqtt
+    name: "Salon"
+    friendly_name: "1"
+    state_topic: "Picasso/Actuador/Enchufe/01"
+    command_topic: "Picasso/Actuador/Enchufe/01/set"
+    payload_on: "K|01|1"
+    payload_off: "K|01|0"
+    optimistic: true
+    qos: 0
+    retain: false
+  - platform: mqtt
+    name: "Despacho"
+    friendly_name: "2"
+    state_topic: "Picasso/Actuador/Enchufe/02"
+    command_topic: "Picasso/Actuador/Enchufe/02/set"
+    payload_on: "K|02|1"
+    payload_off: "K|02|0"
+    optimistic: true
+    qos: 0
+    retain: false
+  - platform: mqtt
+    name: "Arbol"
+    friendly_name: "3"
+    state_topic: "Picasso/Actuador/Enchufe/03"
+    command_topic: "Picasso/Actuador/Enchufe/03/set"
+    payload_on: "K|03|1"
+    payload_off: "K|03|0"
+    optimistic: true
+    qos: 0
+    retain: false
+  - platform: mqtt
+    name: "Suite"
+    friendly_name: "4"
+    state_topic: "Picasso/Actuador/Enchufe/04"
+    command_topic: "Picasso/Actuador/Enchufe/04/set"
+    payload_on: "K|04|1"
+    payload_off: "K|04|0"
+    optimistic: true
+    qos: 0
+    retain: false
+  - platform: mqtt
+    name: "Valla"
+    friendly_name: "valla"
+    state_topic: "Picasso/Actuador/Pulsador/01"
+    command_topic: "Picasso/Actuador/Pulsador/01/set"
+    payload_on: "P|01|1"
+    payload_off: "P|01|0"
+    optimistic: true
+    qos: 0
+    retain: false
+  - platform: mqtt
+    name: "Luz Jardín"
+    friendly_name: "luz jardin"
+    state_topic: "Picasso/Actuador/Rele/01"
+    command_topic: "Picasso/Actuador/Rele/01/set"
+    payload_on: "R|01|1"
+    payload_off: "R|01|0"
+    optimistic: true
+    qos: 0
+  - platform: mqtt
+    name: "Luz Fachada"
+    friendly_name: "luz fachada"
+    state_topic: "Picasso/Actuador/Rele/00"
+    command_topic: "Picasso/Actuador/Rele/00/set"
+    payload_on: "R|00|1"
+    payload_off: "R|00|0"
+    optimistic: true
+    qos: 0

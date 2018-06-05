@@ -1,0 +1,30 @@
+#===============================================================================
+# FLOOR PLAN
+#===============================================================================
+  - name: floorplan_0
+    sidebar_title: Planta Baja
+    sidebar_icon: mdi:floor-plan
+    url_path: floorplan_0
+    config: !include floorplan_0.yaml
+
+  - name: floorplan_1
+    sidebar_title: Primera Planta
+    sidebar_icon: mdi:floor-plan
+    url_path: floorplan_1
+    config: !include floorplan_1.yaml
+
+#===============================================================================
+# HELLO WORLD!
+#===============================================================================
+#  - name: hello
+#    sidebar_title: Hello World
+#    sidebar_icon: mdi:hand-pointing-right
+#    url_path: hello      
+#===============================================================================
+  # - name: todomvc
+    # sidebar_title: TodoMVC
+    # sidebar_icon: mdi:work
+    # url_path: my-todomvc
+    # webcomponent_path: /home/hass/hello.html
+    # config:
+      # who: world

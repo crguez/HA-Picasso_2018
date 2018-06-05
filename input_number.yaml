@@ -1,0 +1,46 @@
+  slider_light:
+    name: Temporizador
+#    initial: 1
+    min: 0
+    max: 30
+    step: 1
+    mode: slider
+    unit_of_measurement: minutos
+    icon: mdi:camera-timer
+  input_box_light:
+    name: input_box_light
+#    initial: 1
+    min: 1
+    max: 10
+    step: 1
+    mode: box
+    unit_of_measurement: minutos
+    icon: mdi:target
+  alarmhour:
+    name: Alarm Hour
+    icon: mdi:timer
+#    initial: 06
+    min: 0
+    max: 23
+    step: 1
+  alarmmins:
+    name: Alarm Minutes
+    icon: mdi:timer
+#    initial: 00
+    min: 0
+    max: 59
+    step: 1
+  alarmfinishhr:
+    name: Finish Hour
+    icon: mdi:watch-export
+#    initial: 07
+    min: 0
+    max: 23
+    step: 1
+  alarmfinishmins:
+    name: Finish Minutes
+    icon: mdi:watch-export
+#    initial: 05
+    min: 0
+    max: 55
+    step: 5    

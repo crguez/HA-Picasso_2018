@@ -1,0 +1,47 @@
+  - name: Prueba 1
+    entities:
+      cover.despacho:              'closed'
+  - name: Prueba 2
+    entities:
+      cover.despacho:              'open'
+
+  - name: Lluvia
+    entities:
+      cover.cocina:                'closed'
+      cover.eider:                 'closed'
+      cover.bano_puerta:           'closed'
+      cover.bano_lavabo:           'closed'
+      cover.salon_ventana_pasillo: 'closed'
+      cover.salon_puerta_pasillo:  'closed'
+      cover.suite_central:         'closed'
+      cover.suite_izquierda:       'closed'
+      cover.suite_derecha:         'closed'
+      cover.suite_vestidor:        'closed'
+
+  - name: Noche en casa
+    entities:
+      cover.cocina:                'closed'
+      cover.eider:                 'closed'
+      cover.june:                  'closed'
+      cover.ibai:                  'closed'
+      cover.bano_puerta:           'closed'
+      cover.bano_lavabo:           'closed'
+      cover.salon_ventana_pasillo: 'closed'
+      cover.salon_puerta_pasillo:  'closed'
+      cover.salon_puerta_jardin:   'closed'
+      cover.salon_ventana_sofa:    'closed'
+      cover.suite:                 'closed'
+      cover.despacho:              'closed'
+
+  - name: Dia en casa
+    entities:
+      cover.cocina:                'open'
+      cover.eider:                 'open'
+      cover.june:                  'open'
+      cover.ibai:                  'open'
+      cover.bano_puerta:           'open'
+      cover.bano_lavabo:           'open'
+      cover.salon:                 'open'
+      cover.suite:                 'open'
+      cover.despacho:              'open'
+

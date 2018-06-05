@@ -1,0 +1,176 @@
+#========================================
+# SENSORES                               
+#========================================
+#--- MIN/MAX de temperatura
+  - platform: min_max
+    name: Min Temp
+    type: min
+    entity_ids:
+      - sensor.temperatura_1
+      - sensor.temperatura_2
+      - sensor.temperatura
+  - platform: min_max
+    name: Max Temp
+    type: max
+    entity_ids:
+      - sensor.temperatura_1
+      - sensor.temperatura_2
+      - sensor.temperatura
+#--- OPEN WEATHER MAP      
+  - platform: openweathermap
+    name: "Tiempo"
+    api_key: !secret openweather_key
+    monitored_conditions:
+      - weather
+      - temperature
+      - wind_speed
+      - humidity
+      - pressure
+      - clouds
+      - rain
+    language: es
+#--- DARKSKY      
+  - platform: darksky
+    name: dark_sky
+    api_key: !secret darksky_key
+    update_interval: 01:00:00
+    monitored_conditions:
+      - daily_summary
+      - hourly_summary
+      - summary
+      - temperature
+      - temperature_min
+      - temperature_max
+      - humidity
+      - wind_speed
+      - wind_bearing
+      - pressure
+      - apparent_temperature
+      - icon
+      - precip_probability
+      - precip_type
+      - precip_intensity
+      - precip_intensity_max
+      - precip_accumulation
+    forecast:
+      - 1
+
+#--- YR      
+  - platform: yr
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - windDirection
+      - humidity
+      - fog
+      - cloudiness
+      - lowClouds
+      - mediumClouds
+      - highClouds
+      - dewpointTemperature
+#--- YAHOO! WHEATHER      
+  - platform: yweather
+    monitored_conditions:
+      - weather
+      - weather_current
+      - temp_min
+      - temp_max
+      - wind_speed
+      - pressure
+      - visibility
+      - humidity
+      - temperature 
+#--- SENSOR DHT22 en ARDUINO       
+  - platform: mqtt
+    state_topic: 'Picasso/Weather/1'
+    name: 'Temperatura'
+    unit_of_measurement: '°C'
+    icon: mdi:thermometer
+    value_template: '{{ value_json.temperature }}'
+  - platform: mqtt
+    state_topic: 'Picasso/Weather/1'
+    name: 'Humedad'
+    icon: mdi:water-percent
+    unit_of_measurement: '%'
+    value_template: '{{ value_json.humidity }}'
+#--- SENSOR BME280 EN WEMOS D1 MINI #1 
+  - platform: mqtt
+    state_topic: 'Picasso/Id1_P/Weather'
+    name: 'Temperatura 1'
+    icon: mdi:thermometer
+    unit_of_measurement: '°C'
+    value_template: '{{ value_json.temperature }}'
+  - platform: mqtt
+    state_topic: 'Picasso/Id1_P/Weather'
+    name: 'Humedad 1'
+    icon: mdi:water-percent
+    unit_of_measurement: '%'
+    value_template: '{{ value_json.humidity }}'
+  - platform: mqtt
+    state_topic: 'Picasso/Id1_P/Weather'
+    name: 'Presion 1'
+    icon: mdi:weather-lightning
+    unit_of_measurement: 'mbar'
+    value_template: '{{ value_json.pressure }}'
+  - platform: mqtt
+    state_topic: 'Picasso/Id1_P/Light'
+    name: 'Luz 1'
+    icon: mdi:lightbulb
+    unit_of_measurement: '%'
+    value_template: '{{ value_json.light }}'   
+#--- SENSOR BME280 EN WEMOS D1 MINI #2
+  - platform: mqtt
+    state_topic: 'Picasso/Id2_P/Weather'
+    name: 'Temperatura 2'
+    unit_of_measurement: '°C'
+    icon: mdi:thermometer
+    value_template: '{{ value_json.temperature }}'
+  - platform: mqtt
+    state_topic: 'Picasso/Id2_P/Weather'
+    name: 'Humedad 2'
+    unit_of_measurement: '%'
+    icon: mdi:water-percent
+    value_template: '{{ value_json.humidity }}'
+  - platform: mqtt
+    state_topic: 'Picasso/Id2_P/Weather'
+    name: 'Presion 2'
+    icon: mdi:weather-lightning
+    unit_of_measurement: 'mbar'
+    value_template: '{{ value_json.pressure }}'
+  - platform: mqtt
+    state_topic: 'Picasso/Id2_P/Light'
+    name: 'Luz 2'
+    icon: mdi:lightbulb
+    unit_of_measurement: '%'
+    value_template: '{{ value_json.light }}'
+#--- CPU Y SYSTEM MONITOR
+#  - platform: cpuspeed
+#    name: 'CPU Speed'
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: memory_free
+      - type: memory_use
+      - type: processor_use
+      - type: last_boot
+      - type: since_last_boot
+      - type: ipv4_address
+        arg: eth0
+#--- OTROS        
+  - platform: template
+    sensors:
+      alarm_time:
+        friendly_name: 'Hora despertador'
+        value_template: '{{ "%0.02d:%0.02d" | format(states.input_number.alarmhour.state | int, states.input_number.alarmmins.state | int) }}'
+#        value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.alarmhour") | int, states("input_number.alarmmins) | int) }}'
+  - platform: template
+    sensors:
+      alarm_time_fin:
+        friendly_name: 'Hora fin despertador'
+        value_template: '{{ "%0.02d:%0.02d" | format(states.input_number.alarmfinishhr.state | int, states.input_number.alarmfinishmins.state | int) }}'
+#        value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.alarmfinishhr") | int, states("input_number.alarmfinishmins) | int) }}'
+      
