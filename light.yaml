@@ -1,0 +1,121 @@
+  - platform: mqtt  
+    name: "Sensor 1 LED"  
+    schema: json
+    state_topic: "bruh/sensornode1"  
+    command_topic: "bruh/sensornode1/set"  
+    brightness: true  
+    rgb: true  
+    optimistic: false  
+    qos: 0  
+
+  - platform: group
+    name: "Luces Exteriores"
+    entities:
+      - light.luz_fachada
+      - light.luz_jardin
+      - light.luz_entrada_coche
+      - light.luz_tendedero
+      - light.luz_piscina
+      - light.luz_garaje
+ 
+  - platform: mqtt
+    name: "Luz Fachada"
+    state_topic: "Picasso/Actuador/Rele/00"
+    command_topic: "Picasso/Actuador/Rele/00/set"
+    payload_on: "R|00|0"
+    payload_off: "R|00|1"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
+    optimistic: true
+    qos: 1    
+
+  - platform: mqtt
+    name: "Luz Tendedero"
+    state_topic: "stat/sonoff-0004/POWER1"
+    command_topic: "cmnd/sonoff-0004/POWER1"
+    availability_topic: "tele/sonoff-0004/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false      
+
+  - platform: mqtt
+    name: "Luz Garaje"
+    state_topic: "stat/sonoff-0004/POWER2"
+    command_topic: "cmnd/sonoff-0004/POWER2"
+    availability_topic: "tele/sonoff-0004/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false          
+
+  - platform: mqtt
+    name: "Luz Piscina"
+    state_topic: "stat/sonoff-0004/POWER3"
+    command_topic: "cmnd/sonoff-0004/POWER3"
+    availability_topic: "tele/sonoff-0004/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false          
+
+  - platform: mqtt
+    name: "Luz Entrada coche"
+    state_topic: "stat/sonoff-0004/POWER4"
+    command_topic: "cmnd/sonoff-0004/POWER4"
+    availability_topic: "tele/sonoff-0004/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false          
+        
+  - platform: mqtt
+    name: "Luz Trasera"
+    state_topic: "stat/sonoff-0001/POWER"
+    command_topic: "cmnd/sonoff-0001/POWER"
+    availability_topic: "tele/sonoff-0001/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false   
+        
+  - platform: mqtt
+    name: "Luz Arbol Navidad"
+    state_topic: "stat/sonoff-0002/POWER"
+    command_topic: "cmnd/sonoff-0002/POWER"
+    availability_topic: "tele/sonoff-0002/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
+
+  - platform: mqtt
+    schema: json
+    name: "SN1 LED"
+    state_topic:        "bruh/sensornode1/status"
+    command_topic:      "bruh/sensornode1/set"
+    availability_topic: "bruh/sensornode1/LWT"
+    brightness: true
+    flash_time_long: 10
+    flash_time_short: 2
+    effect: true
+    effect_list: [colorfade_slow, colorfade_fast, flash]
+    rgb: true
+    optimistic: false
+    qos: 0
+    retain: false
+    payload_available: "online"
+    payload_not_available: "offline"

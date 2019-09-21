@@ -1,0 +1,13 @@
+  project_id: prueba-3e43d
+  api_key: !secret gass_api_key
+  exposed_domains:
+    - switch
+    - light
+    - cover
+    - scripts
+    - scenes
+    - media_player
+  entity_config:
+    switch.enchufe_salon:
+      expose: false
+

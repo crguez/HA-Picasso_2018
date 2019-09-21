@@ -1,0 +1,2 @@
+  host: 192.168.2.5
+  allow_tradfri_groups: true

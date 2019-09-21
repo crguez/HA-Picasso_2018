@@ -1,0 +1,51 @@
+      name: Picasso_0
+      image: /local/custom_ui/floorplan/planta0.svg
+      stylesheet: /local/custom_ui/floorplan/floorplan.css
+      warnings:
+      pan_zoom:
+      hide_app_toolbar:
+      date_format: DD-MMM-YYYY      
+      groups:
+
+        - name: Switches
+          entities:
+             - switch.enchufe_salon
+             #- switch.enchufe_arbol
+          states:
+            - state: 'on'
+              class: 'doorbell-on'
+            - state: 'off'
+              class: 'doorbell-off'
+
+        - name: Cameras
+          entities:
+            - camera.salon
+          states:
+            - state: 'idle'
+              class: 'camera-idle'    
+              
+        - name: Kodi Salon
+          entities:
+            - media_player.kodi_salon
+          states:
+            - state: 'idle'
+              class: 'kodi-idle'
+            - state: 'off'
+              class: 'kodi-off'
+            - state: 'playing'
+              class: 'kodi-playing'  
+
+        - name: Persianas
+          entities:
+            - cover.persianas_cocina_puerta
+            - cover.persianas_cocina_ventana
+            - cover.persiana_salon_ventana_pasillo
+            - cover.persiana_salon_puerta_pasillo
+            - cover.persiana_salon_ventana_sofa
+            - cover.persiana_salon_puerta_jardin
+            - cover.persiana_salon_ventana_invernadero
+          states:
+            - state: 'open'
+              class: 'generic-on'
+            - state: 'close'
+              class: 'generic-off'              

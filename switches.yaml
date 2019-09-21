@@ -1,0 +1,49 @@
+  - platform: mqtt
+    name: "Enchufe Salon"
+    icon: mdi:power-plug
+    state_topic: "Picasso/Actuador/Enchufe/01"
+    command_topic: "Picasso/Actuador/Enchufe/01/set"
+    payload_on: "K|01|1"
+    payload_off: "K|01|0"
+    optimistic: true
+    qos: 0
+    retain: false
+  - platform: mqtt
+    name: "Enchufe Otros"
+    icon: mdi:power-plug
+    state_topic: "Picasso/Actuador/Enchufe/03"
+    command_topic: "Picasso/Actuador/Enchufe/03/set"
+    payload_on: "K|03|1"
+    payload_off: "K|03|0"
+    optimistic: true
+    qos: 0
+    retain: false
+  - platform: mqtt
+    name: "Enchufe Despacho"
+    icon: mdi:power-plug
+    state_topic: "Picasso/Actuador/Enchufe/02"
+    command_topic: "Picasso/Actuador/Enchufe/02/set"
+    payload_on: "K|02|1"
+    payload_off: "K|02|0"
+    optimistic: true
+    qos: 0
+    retain: false
+  - platform: mqtt
+    name: "Enchufe Suite"
+    icon: mdi:power-plug
+    state_topic: "Picasso/Actuador/Enchufe/04"
+    command_topic: "Picasso/Actuador/Enchufe/04/set"
+    payload_on: "K|04|1"
+    payload_off: "K|04|0"
+    optimistic: true
+    qos: 0
+    retain: false
+  - platform: mqtt
+    name: "Puerta Valla"
+    state_topic: "Picasso/Actuador/Pulsador/01"
+    command_topic: "Picasso/Actuador/Pulsador/01/set"
+    payload_on: "P|01|1"
+    payload_off: "P|01|0"
+    optimistic: true
+    qos: 0
+    retain: false

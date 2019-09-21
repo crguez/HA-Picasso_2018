@@ -1,0 +1,43 @@
+      name: Picasso_1
+      image: /local/custom_ui/floorplan/planta1.svg
+      stylesheet: /local/custom_ui/floorplan/floorplan.css
+      warnings:
+      pan_zoom:
+      hide_app_toolbar:
+      date_format: DD-MMM-YYYY      
+      groups:
+
+        - name: Switches
+          entities:
+             - switch.enchufe_despacho
+             - switch.enchufe_suite
+             - switch.enchufe_fachada
+          states:
+            - state: 'on'
+              class: 'doorbell-on'
+            - state: 'off'
+              class: 'doorbell-off'
+
+        - name: Kodi Suite
+          entities:
+            - media_player.kodi_suite
+            - media_player.kodi_despacho
+          states:
+            - state: 'idle'
+              class: 'kodi-idle'
+            - state: 'off'
+              class: 'kodi-off'
+            - state: 'playing'
+              class: 'kodi-playing'
+
+        - name: Luces
+          entities:
+            - light.luz_ibai
+            - light.luz_june
+            - light.luz_eider  
+          states:
+            - state: 'on'
+              class: 'light-on'
+            - state: 'off'
+              class: 'light-off'
+            

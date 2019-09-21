@@ -1,0 +1,434 @@
+###### VISTA POR DEFECTO
+  default_view:
+    view: yes
+    icon: mdi:home-variant
+    entities:
+      - climate.picasso
+      - sun.sun
+#      - sensor.yr_temperature
+      # - sensor.dark_sky_temperature
+      # - sensor.yweather_current
+      #- sensor.yweather_condition
+      #- sensor.yweather_temperature
+      - group.defecto
+      #- persistent_notification.1
+#Zenfore (Marian)
+      - device_tracker.704d7bae3628
+#Zenfone (Carlos)
+      #- device_tracker.38d5473d4ef9 # Asus por NMAP
+      - device_tracker.asus_z017d # Asus por BT
+
+#====== PESTAÑAS PRINCIPALES =====
+#----------------------------------------      
+  zones:
+    name: Zones
+#    view: yes
+    icon: mdi:floor-plan
+    entities:
+      - binary_sensor.floorplan
+#-----------------------------------------      
+  planta_baja:
+    name: Planta Baja
+    view: yes
+    icon: mdi:arrow-down-bold-box-outline
+    entities: 
+      - group.salon
+      - group.cocina
+      - group.ws_1
+      - media_player.kodi_salon
+      - group.camaras
+
+#----------------------------------------      
+  planta_1:
+    name: Planta Primera
+    icon: mdi:arrow-up-bold-box-outline
+    view: yes
+    entities:
+      - group.suite
+      - group.despacho
+      - group.bany
+      - group.dormitorios
+      - group.ws_2
+      - group.ws_arduino
+      - group.control_luz
+      - media_player.kodi_suite
+      - media_player.kodi_despacho
+      - media_player.despacho
+      - group.despertador
+#----------------------------------------      
+  exterior:
+    name: Exterior
+    icon: mdi:launch
+    view: yes
+    entities:
+      - group.luces_exteriores
+      - group.metereo1
+#      - group.metereo2
+      - group.metereo3
+      - group.metereo4
+      - group.sol
+
+  luces_exteriores:
+    name: Luces exteriores
+    icon: mdi:track-light
+    entities:
+      - light.luz_trasera
+      - light.luz_entrada_coche
+      - light.luz_garaje
+      - light.luz_piscina
+      - light.luz_tendedero
+      - light.luz_trasera
+#----------------------------------------      
+  escenas:
+    name: Escenas
+    entities:
+      - scene.lluvia
+      - scene.noche_en_casa
+      - scene.dia_en_casa
+      - scene.fuera_de_casa
+  camaras:
+    name: Camaras
+    #icon: mdi:cctv
+    #view: yes
+    entities:
+      - camera.salon      
+#----------------------------------------
+  # luces:
+  #   name: Luces
+  #   view: yes
+  #   icon: mdi:lamp
+  #   entities:
+  #     - group.luces_dormitorios
+  #     - group.luces_exteriores
+  #     - group.control_luz
+  #     - group.despertador
+#----------------------------------------
+  # luces_dormitorios:
+    # name: Luces dormitorios
+    # view: no
+    # icon: mdi:lamp
+    # entities:
+      # - light.june_2
+      # - light.ibai
+      # - light.eider
+#----------------------------------------      
+  # bases:
+  #   name: Enchufes
+  #   view: yes
+  #   icon: mdi:power-plug
+  #   entities:
+  #     - switch.enchufe_salon
+  #     - switch.enchufe_suite
+  #     - switch.enchufe_despacho
+  #     - switch.enchufe_arbol
+  # estaciones:
+  #   name: Estaciones
+  #   view: yes
+  #   icon: mdi:thermometer-lines
+  #   entities:
+  #     - sensor.min_temp
+  #     - sensor.max_temp
+  #     - group.ws_arduino
+  #     - group.ws_3
+  #     - group.ws_1
+  #     - group.ws_2
+
+#----------------------------------------
+  dispositivos:
+    name: Dispositivos
+    view: yes
+    icon: mdi:lan
+    entities:
+      - group.all_automations
+      - group.all_scripts
+      - group.escenas
+      - group.infraestructura
+      - group.raspberry
+      - group.moviles
+      - group.otros
+      - group.sensor_node_1_card
+#------------------------------------------
+  # medios:
+  #   name: Reproductores
+  #   icon: mdi:theater
+  #   view: yes
+  #   entities:
+  #     - media_player.kodi_salon
+  #     - media_player.kodi_suite
+  #     - media_player.kodi_despacho
+#====== GRUPOS EN PESTAÑAS   =====
+  ws_arduino:
+    name: 'Estación Met. Arduino'
+    icon: mdi:video-input-antenna
+    entities:
+      - sensor.temperatura
+      - sensor.humedad      
+  ws_1:
+    name: 'Estación Comedor'
+    icon: mdi:thermometer
+    entities: 
+      - binary_sensor.weather_station_1     
+      - sensor.temperatura_salon
+      - sensor.humedad_salon
+      - sensor.luz_salon
+      - sensor.presion_salon
+  ws_2:
+    name: 'Estación Despacho'
+    icon: mdi:thermometer
+    entities:
+      - binary_sensor.weather_station_2
+      - sensor.temperatura_despacho
+      - sensor.humedad_despacho
+      - sensor.luz_despacho
+      - sensor.presion_despacho
+
+#----------------------------------------
+  defecto:
+    name: Picasso
+    icon: mdi:home-variant
+    entities:
+      - input_boolean.at_home
+      - input_boolean.piscina_informada
+      - sun.sun
+      # - sensor.temperatura
+      # - sensor.humedad
+      # - sensor.yweather_current
+      # - sensor.yweather_temperature
+      # - sensor.yweather_humidity
+#----------------------------------------
+  moviles:
+    name: Móviles
+    entities:
+#Zenfone (Carlos)
+      - device_tracker.38d5473d4ef9
+#Zenfone (Carlos)
+      - device_tracker.asus_z017d
+#iPad (Carlos)
+      - device_tracker.f41ba18057c6
+      - device_tracker.ipad_de_carlos_2
+      - sensor.ipad_de_carlos_battery_level
+      - sensor.ipad_de_carlos_battery_state
+#Samsung (Carlos)
+      - device_tracker.24920e0707d8
+#Zenfore (Marian)
+      - device_tracker.704d7bae3628
+#iPad (Marian)      
+      - device_tracker.dca904524205
+#Samsung (Marian)
+      - device_tracker.24920e1ea776
+
+#-----------------------------------------
+  infraestructura:
+    name: Infraestructura
+    entities:
+      - device_tracker.re200
+      - device_tracker.re3000w
+      - binary_sensor.arduino_gateway_1
+      - binary_sensor.weather_station_1
+      - binary_sensor.weather_station_2
+      - sensor.tradfri_remote_control
+#-----------------------------------------
+  raspberry:
+    name: Raspberry
+    entities:
+#      - sensor.cpu_speed # No funciona en HASSIO
+#      - sensor.cpu_use
+      - sensor.last_boot
+      - sensor.ram_free
+      - sensor.ram_use
+      - sensor.since_last_boot
+      - sensor.last_boot
+      - sensor.ipv4_address_eth0
+      - sensor.disk_use_home
+#------------------------------------------
+  otros:
+    name: Otros dispositivos
+    entities:
+      - device_tracker.9aded001c569
+      - device_tracker.9aded00707d8
+      - device_tracker.frias
+      - device_tracker.rj40304741
+      - device_tracker.sennheiser_ezx_60
+      - device_tracker.huawei_p8_lite_2017
+      - device_tracker.ipad_2018_david
+
+#------------------------------------------
+  despacho:
+    name: Despacho
+    entities:
+      - cover.persiana_despacho
+      - switch.enchufe_despacho
+      - camera.despacho
+      # - group.ws_arduino
+      # - media_player.kodi_despacho
+#------------------------------------------
+  cocina:
+    name: Cocina
+    entities:
+      - cover.persianas_cocina
+      - cover.persianas_cocina_puerta
+      - cover.persianas_cocina_ventana
+#------------------------------------------
+  salon:
+    name: Salón
+    entities:
+      - cover.persianas_salon
+      - cover.persiana_salon_ventana_pasillo
+      - cover.persiana_salon_puerta_pasillo
+      - cover.persiana_salon_ventana_sofa
+      - cover.persiana_salon_puerta_jardin
+      - cover.persiana_salon_ventana_invernadero
+      - switch.enchufe_salon
+      #- switch.enchufe_arbol
+      - light.luz_arbol_navidad
+
+#------------------------------------------
+  suite:
+    name: Suite
+    entities:
+      - cover.persianas_suite
+      - cover.persiana_suite_vestidor
+      - cover.persiana_suite_izquierda
+      - cover.persiana_suite_central
+      - cover.persiana_suite_derecha
+      - cover.persiana_suite_terraza
+      - switch.enchufe_suite
+
+#------------------------------------------
+  dormitorios:
+    name: Dormitorios
+    entities:
+      - light.luces_peques
+      - cover.persiana_ibai
+      - light.luz_ibai
+      - cover.persiana_june
+      - light.luz_june
+      - cover.persiana_eider
+      - light.luz_eider
+#------------------------------------------
+  bany:
+    name: Baño
+    entities:
+      - cover.persiana_bano_lavabo
+      - cover.persiana_bano_puerta
+#------------------------------------------
+  metereo0:
+    name: Sun
+    entities:
+      - sun.sun
+      - sun.next_rising
+      - sun.next_setting
+      - sun.next_dawn
+      - sun.next_dusk
+      - sun.next_noon
+      - sun.next_midnight
+      - sun.azimuth
+#------------------------------------------
+  metereo1:
+    name: YR Weather
+    entities:
+      - sensor.yr_symbol
+      - sensor.yr_cloudiness
+      - sensor.yr_dewpoint_temperature
+      - sensor.yr_fog
+      - sensor.yr_high_clouds
+      - sensor.yr_humidity
+      - sensor.yr_low_clouds
+      - sensor.yr_medium_clouds
+      - sensor.yr_precipitation
+      - sensor.yr_pressure
+      - sensor.yr_symbol
+      - sensor.yr_temperature
+      - sensor.yr_wind_direction
+      - sensor.yr_wind_speed
+#------------------------------------------
+  ws_3:
+    name: Termostato salón
+    entities:
+      - climate.picasso
+#------------------------------------------
+# RETIRED
+  # metereo2:
+  #   name: Yahoo! Weather
+  #   entities:
+  #     - sensor.yweather_condition
+  #     - sensor.yweather_current
+  #     - sensor.yweather_humidity
+  #     - sensor.yweather_pressure
+  #     - sensor.yweather_temperature
+  #     - sensor.yweather_temperature_max
+  #     - sensor.yweather_temperature_min
+  #     - sensor.yweather_visibility
+  #     - sensor.yweather_wind_speed      
+#------------------------------------------
+  metereo3:
+    name: Darksky Weather
+    entities:
+      - sensor.dark_sky_icon
+      - sensor.dark_sky_temperature
+      - sensor.dark_sky_apparent_temperature
+      - sensor.dark_sky_humidity
+      - sensor.dark_sky_pressure
+      - sensor.dark_sky_precip_probability
+      - sensor.dark_sky_precip_intensity
+      - sensor.dark_sky_precip_intensity_max
+      - sensor.dark_sky_wind_speed
+      - sensor.dark_sky_wind_bearing
+      - sensor.dark_sky_daily_summary
+      - sensor.dark_sky_summary
+      - sensor.dark_sky_hourly_summary
+#------------------------------------------
+  metereo4:
+    name: Open Weather Map
+    entities:
+      - sensor.tiempo_cloud_coverage
+      - sensor.tiempo_condition
+      - sensor.tiempo_humidity
+      - sensor.tiempo_pressure
+      - sensor.tiempo_rain
+      - sensor.tiempo_temperature
+      - sensor.tiempo_wind_speed
+      - sensor.tiempo_forecast
+#------------------------------------------
+  sol:
+    name: Sol
+    entities:
+      - sun.sun
+      - sun.next_rising
+      - sun.next_setting
+      - sun.next_dawn
+      - sun.next_dusk
+      - sun.next_noon
+      - sun.next_midnight
+      - sun.elevation
+      - sun.azimuth
+#----------------------------------------      
+  despertador:
+    name: Despertador
+    entities:
+      - input_boolean.alarmstatus
+      - sensor.alarm_time
+      - input_number.alarmhour
+      - input_number.alarmmins
+      - sensor.alarm_time_fin
+      - input_number.alarmfinishhr
+      - input_number.alarmfinishmins
+      - input_boolean.alarmweekday
+#  ha_status:
+#    name: Sistema
+#    view: yes
+#    entities:
+#      - script.restart_ha
+#      - sensor.cpu_use
+#      - sensor.ram_free
+#      - sensor.disk_free_home
+#      - sensor.last_boot
+#------------------------------------------
+  sensor_salon_card:  
+    name: Sensor Salon
+    entities:  
+      - sensor.sn1_temperatura
+      - sensor.sn1_humedad
+      - sensor.sn1_lux
+      - sensor.sn1_pir
+      - light.sn1_led

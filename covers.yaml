@@ -1,0 +1,307 @@
+############################
+# PLANTA BAJA
+############################
+#===========================
+# COCINA
+#===========================
+  - platform: group
+    name: Persianas Cocina
+    entities:
+      - cover.persiana_cocina_puerta
+      - cover.persiana_cocina_ventana
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/12"
+    command_topic: "Picasso/Actuador/Persiana/12/set"
+    name: Persiana Cocina Puerta
+    qos: 0
+    retain: false
+    payload_open: "B|12|0"
+    payload_close: "B|12|1"
+    payload_stop: "B|12|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/13"
+    command_topic: "Picasso/Actuador/Persiana/13/set"
+    name: Persiana Cocina Ventana
+    qos: 0
+    retain: false
+    payload_open: "B|13|0"
+    payload_close: "B|13|1"
+    payload_stop: "B|13|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/14"
+    command_topic: "Picasso/Actuador/Persiana/14/set"
+    name: Persianas Cocina
+    qos: 0
+    retain: false
+    payload_open: "B|14|0"
+    payload_close: "B|14|1"
+    payload_stop: "B|14|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+#===========================
+# SALON
+#===========================
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/20"
+    command_topic: "Picasso/Actuador/Persiana/20/set"
+    name: Persianas Salón
+    qos: 0
+    retain: false
+    payload_open: "B|20|0"
+    payload_close: "B|20|1"
+    payload_stop: "B|20|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/15"
+    command_topic: "Picasso/Actuador/Persiana/15/set"
+    name: Persiana Salón Ventana Pasillo
+    qos: 0
+    retain: false
+    payload_open: "B|15|0"
+    payload_close: "B|15|1"
+    payload_stop: "B|15|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/16"
+    command_topic: "Picasso/Actuador/Persiana/16/set"
+    name: Persiana Salón Puerta Pasillo
+    qos: 0
+    retain: false
+    payload_open: "B|16|0"
+    payload_close: "B|16|1"
+    payload_stop: "B|16|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/17"
+    command_topic: "Picasso/Actuador/Persiana/17/set"
+    name: Persiana Salón Ventana Sofá
+    qos: 0
+    retain: false
+    payload_open: "B|17|0"
+    payload_close: "B|17|1"
+    payload_stop: "B|17|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/18"
+    command_topic: "Picasso/Actuador/Persiana/18/set"
+    name: Persiana Salón Puerta Jardín
+    qos: 0
+    retain: false
+    payload_open: "B|18|0"
+    payload_close: "B|18|1"
+    payload_stop: "B|18|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/19"
+    command_topic: "Picasso/Actuador/Persiana/19/set"
+    name: Persiana Salón Ventana Invernadero
+    qos: 0
+    retain: false
+    payload_open: "B|19|0"
+    payload_close: "B|19|1"
+    payload_stop: "B|19|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+############################
+# PLANTA PRIMERA
+############################
+# BAÑO
+#===========================
+  - platform: group
+    name: Persianas Baño
+    entities:
+      - cover.persiana_bano_lavabo
+      - cover.persiana_bano_puerta
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/07"
+    command_topic: "Picasso/Actuador/Persiana/07/set"
+    name: Persiana Baño Lavabo
+    qos: 0
+    retain: false
+    payload_open: "B|07|0"
+    payload_close: "B|07|1"
+    payload_stop: "B|07|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/08"
+    command_topic: "Picasso/Actuador/Persiana/08/set"
+    name: Persiana Baño Puerta
+    qos: 0
+    retain: false
+    payload_open: "B|08|0"
+    payload_close: "B|08|1"
+    payload_stop: "B|08|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+#===========================
+# DESPACHO
+#===========================
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/00"
+    command_topic: "Picasso/Actuador/Persiana/00/set"
+    name: Persiana Despacho
+    qos: 0
+    retain: false
+    payload_open: "B|00|0"
+    payload_close: "B|00|1"
+    payload_stop: "B|00|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+#    value_template: '{{ value_json.status }}'
+#    value_template: >-
+#          {% if is_state('cover.persiana_despacho', 'True') %}
+#            open
+#          {% elif is_state('cover.persiana_depacho', 'False') %}
+#            closed
+#          {% endif %}
+#    icon_template: >-
+#          {% if is_state('cover.persiana_despacho', 'open') %}
+#            mdi:battery
+#          {% else %}
+#            mdi:battery-10
+#          {% endif %}      
+ 
+      
+#===========================
+# SUITE
+#===========================
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/01"
+    command_topic: "Picasso/Actuador/Persiana/01/set"
+    name: Persiana Suite Vestidor
+    qos: 0
+    retain: false
+    payload_open: "B|01|0"
+    payload_close: "B|01|1"
+    payload_stop: "B|01|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/02"
+    command_topic: "Picasso/Actuador/Persiana/02/set"
+    name: Persiana Suite Izquierda
+    qos: 0
+    retain: false
+    payload_open: "B|02|0"
+    payload_close: "B|02|1"
+    payload_stop: "B|02|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/03"
+    command_topic: "Picasso/Actuador/Persiana/03/set"
+    name: Persiana Suite Central
+    qos: 0
+    retain: false
+    payload_open: "B|03|0"
+    payload_close: "B|03|1"
+    payload_stop: "B|03|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/04"
+    command_topic: "Picasso/Actuador/Persiana/04/set"
+    name: Persiana Suite Derecha
+    qos: 0
+    retain: false
+    payload_open: "B|04|0"
+    payload_close: "B|04|1"
+    payload_stop: "B|04|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/05"
+    command_topic: "Picasso/Actuador/Persiana/05/set"
+    name: Persiana Suite Terraza
+    qos: 0
+    retain: false
+    payload_open: "B|05|0"
+    payload_close: "B|05|1"
+    payload_stop: "B|05|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/06"
+    command_topic: "Picasso/Actuador/Persiana/06/set"
+    name: Persianas Suite
+    qos: 0
+    retain: false
+    payload_open: "B|06|0"
+    payload_close: "B|06|1"
+    payload_stop: "B|06|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+#===========================
+# IBAI
+#===========================
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/09"
+    command_topic: "Picasso/Actuador/Persiana/09/set"
+    name: Persiana Ibai
+    qos: 0
+    retain: false
+    payload_open: "B|09|0"
+    payload_close: "B|09|1"
+    payload_stop: "B|09|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+#===========================
+# EIDER
+#===========================
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/10"
+    command_topic: "Picasso/Actuador/Persiana/10/set"
+    name: Persiana Eider
+    qos: 0
+    retain: false
+    payload_open: "B|10|0"
+    payload_close: "B|10|1"
+    payload_stop: "B|10|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+#===========================
+# JUNE
+#===========================
+  - platform: mqtt
+    state_topic: "Picasso/Actuador/Persiana/11"
+    command_topic: "Picasso/Actuador/Persiana/11/set"
+    name: Persiana June
+    qos: 0
+    retain: false
+    payload_open: "B|11|0"
+    payload_close: "B|11|1"
+    payload_stop: "B|11|2"
+    state_open: "OPEN"
+    state_closed: "CLOSE"
+    optimistic: false
+

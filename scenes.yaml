@@ -1,0 +1,48 @@
+  - name: Fuera de casa
+    entities:
+      cover.persianas_cocina:                'closed'
+      cover.persiana_salon_ventana_pasillo: 'closed'
+      cover.persiana_salon_puerta_pasillo:  'closed'
+      cover.persiana_salon_puerta_jardin:   'closed'
+      cover.persiana_salon_ventana_sofa:    'closed'
+
+  - name: Lluvia
+    entities:
+      cover.persianas_cocina:                'closed'
+      cover.persiana_eider:                 'closed'
+      cover.persiana_bano_puerta:           'closed'
+      cover.persiana_bano_lavabo:           'closed'
+      cover.persiana_salon_ventana_pasillo: 'closed'
+      cover.persiana_salon_puerta_pasillo:  'closed'
+      cover.persiana_suite_central:         'closed'
+      cover.persiana_suite_izquierda:       'closed'
+      cover.persiana_suite_derecha:         'closed'
+      cover.persiana_suite_vestidor:        'closed'
+
+  - name: Noche en casa
+    entities:
+      cover.persianas_cocina:                'closed'
+      cover.persiana_eider:                 'closed'
+      cover.persiana_june:                  'closed'
+      cover.persiana_ibai:                  'closed'
+      cover.persiana_bano_puerta:           'closed'
+      cover.persiana_bano_lavabo:           'closed'
+      cover.persiana_salon_ventana_pasillo: 'closed'
+      cover.persiana_salon_puerta_pasillo:  'closed'
+      cover.persiana_salon_puerta_jardin:   'closed'
+      cover.persiana_salon_ventana_sofa:    'closed'
+      cover.persianas_suite:                 'closed'
+      cover.persiana_despacho:              'closed'
+
+  - name: Dia en casa
+    entities:
+      cover.persianas_cocina:                'open'
+      cover.persiana_eider:                 'open'
+      cover.persiana_june:                  'open'
+      cover.persiana_ibai:                  'open'
+      cover.persiana_bano_puerta:           'open'
+      cover.persiana_bano_lavabo:           'open'
+      cover.persiana_salon:                 'open'
+      cover.persianas_suite:                 'open'
+      cover.persiana_despacho:              'open'
+

@@ -1,0 +1,11 @@
+  - name: floorplan_0
+    sidebar_title: Planta Baja
+    sidebar_icon: mdi:home
+    url_path: floorplan_0
+    config: !include floorplan_0.yaml
+
+  - name: floorplan_1
+    sidebar_title: Primera Planta
+    sidebar_icon: mdi:home
+    url_path: floorplan_1
+    config: !include floorplan_1.yaml

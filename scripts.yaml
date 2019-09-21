@@ -1,0 +1,454 @@
+  paro_lluvia:
+    alias: Paro lluvia
+    sequence:
+    - condition: state
+      entity_id: binary_sensor.raining
+      state: 'on'
+    - service: media_player.turn_on
+      data:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+    - service: media_player.volume_set
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        volume_level: 0.75
+    - service: tts.google_say
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        message: '¡Vaya!, parece que ha dejado de llover. Puedes subir las persianas.'
+        language: 'es'
+    - service: media_player.volume_set
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        volume_level: 0.30    
+    - service: binary_sensor.turn_off
+      data:
+        entity_id:
+        - binary_sensor.raining  
+#============================================        
+  inicio_lluvia:
+    alias: Inicio lluvia
+    sequence:
+    - condition: state
+      entity_id: binary_sensor.raining
+      state: 'off'
+    - service: media_player.turn_on
+      data:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+    - service: media_player.volume_set
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        volume_level: 0.75
+    - service: tts.google_say
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        message: '¡Vaya!, parece que ha empezado a llover. Bajo las persianas para que no se mojen las ventanas.'
+        language: 'es'
+    - service: media_player.volume_set
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        volume_level: 0.30    
+    - service: binary_sensor.turn_on
+      data:
+        entity_id:
+        - binary_sensor.raining
+    - service: cover.close_cover
+      data:
+        entity_id:
+#        - cover.persiana_salon_puerta_pasillo
+#        - cover.persiana_salon_ventana_pasillo
+#        - cover.persiana_suite_vestidor
+#        - cover.persiana_suite_derecha
+#        - cover.persiana_suite_izquierda
+#        - cover.persiana_suite_central
+#        - cover.persiana_bano_lavabo
+#        - cover.persiana_bano_puerta
+#        - cover.persianas_cocina
+#        - cover.persiana_eider
+        - cover.persiana_despacho
+    - service: notify.telegram
+      data:
+        message: "¡Está lloviendo en casa! Yo bajo las persianas, tú recoge la ropa."
+        title: "*Home Assistant*"
+  demo:
+    alias: Modo demo
+    sequence:
+    - service: light.turn_off
+      data:
+        entity_id:
+        - light.luz_trasera
+        - light.luz_entrada_coche
+        - light.luz_garaje
+        - light.luz_piscina
+        - light.luz_tendedero
+    - delay: 00:00:02
+    - service: light.turn_on
+      data:
+        entity_id:
+        - light.luz_trasera
+    - delay: 00:00:02
+    - service: light.turn_off
+      data:
+        entity_id:
+        - light.luz_trasera
+    - service: light.turn_on
+      data:
+        entity_id:
+        - light.luz_entrada_coche
+    - delay: 00:00:02
+    - service: light.turn_off
+      data:
+        entity_id:
+        - light.luz_entrada_coche
+    - service: light.turn_on
+      data:
+        entity_id:
+        - light.luz_garaje
+    - delay: 00:00:02
+    - service: light.turn_off
+      data:
+        entity_id:
+        - light.luz_garaje
+    - service: light.turn_on
+      data:
+        entity_id:
+        - light.luz_piscina
+    - delay: 00:00:02
+    - service: light.turn_off
+      data:
+        entity_id:
+        - light.luz_piscina
+    - service: light.turn_on
+      data:
+        entity_id:
+        - light.luz_tendedero
+    - delay: 00:00:02
+    - service: light.turn_off
+      data:
+        entity_id:
+        - light.luz_tendedero
+    - delay: 00:00:01
+    - service: light.turn_on
+      data:
+        entity_id:
+        - light.luz_trasera
+        - light.luz_entrada_coche
+        - light.luz_garaje
+        - light.luz_piscina
+        - light.luz_tendedero
+    - delay: 00:00:01
+    - service: light.turn_off
+      data:
+        entity_id:
+        - light.luz_trasera
+        - light.luz_entrada_coche
+        - light.luz_garaje
+        - light.luz_piscina
+        - light.luz_tendedero
+  atenuar_luces:
+    alias: Atenuar luces
+    sequence:
+      service: light.turn_on
+      data:
+        entity_id: light.luces_peques
+        brightness: 10
+  ventilar_habitaciones:
+    alias: Ventilando habitaciones
+    sequence:
+    - service: cover.open_cover
+      data:
+        entity_id:
+        - cover.persiana_suite_vestidor
+        - cover.persiana_suite_terraza
+    - delay: 00:00:10
+    - service: cover.stop_cover
+      data:
+        entity_id:
+        - cover.persiana_suite_vestidor
+    - delay: 00:00:04
+    - service: cover.stop_cover
+      data:
+        entity_id:
+        - cover.persiana_suite_terraza
+  leaving_home:
+    alias: Saliendo de casa
+    sequence:
+    - service: switch.turn_off
+      data:
+        entity_id:
+        - switch.enchufe_salon
+        - switch.enchufe_suite
+        - switch.enchufe_despacho
+    - service: cover.close_cover
+      data:
+        entity_id:
+        - cover.persiana_salon_puerta_jardin
+        - cover.persiana_salon_puerta_pasillo
+        - cover.persiana_salon_ventana_pasillo
+        - cover.persiana_salon_ventana_sofa
+        - cover.persianas_cocina
+    - service: light.turn_off
+      data:
+        entity_id:
+        - light.luz_trasera
+        - light.luces_peques
+        - light.luz_arbol_navidad
+    - service: climate.set_away_mode
+      data:
+        entity_id: climate.picasso
+        away_mode: 'on'
+    - service: climate.turn_off
+      data:
+        entity_id: climate.picasso
+    - condition: state
+      entity_id: binary_sensor.sun_up
+      state: 'off'
+    - service: light.turn_on
+      data:
+        entity_id:
+        - light.luz_garaje
+        - light.luz_entrada_coche
+        - light.luz_trasera
+    - delay: 00:03:00
+    - service: light.turn_off
+      data:
+        entity_id:
+        - light.luz_garaje
+        - light.luz_entrada_coche
+        - light.luz_trasera
+  arriving_home:
+    alias: Llegando a casa
+    sequence:
+    - service: notify.telegram
+      data:
+        title: "*Home Assistant*"
+        message: Llegando a casa
+    - service: climate.turn_on
+      data:
+        entity_id: climate.picasso
+    - service: climate.set_away_mode
+      data:
+        entity_id: climate.picasso
+        away_mode: 'off'
+    - condition: state
+      entity_id: binary_sensor.sun_up
+      state: 'off'
+    - service: light.turn_on
+      data:
+        entity_id:
+        - light.luz_garaje
+        - light.luz_entrada_coche
+        - light.luz_trasera
+    - delay: 00:03:00
+    - service: light.turn_off
+      data:
+        entity_id:
+        - light.luz_garaje
+        - light.luz_entrada_coche
+        - light.luz_trasera
+  bajando_persianas:
+    alias: Bajando persianas de noche
+    sequence:
+    - service: media_player.turn_on
+      data:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+    - service: media_player.volume_set
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        volume_level: 0.75
+    - service: tts.google_say
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        message: '¡Atención! Bajando persianas.'
+        language: 'es'
+    - service: media_player.volume_set
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        volume_level: 0.30
+    - service: cover.close_cover
+      data:
+        entity_id:
+        - cover.persiana_ibai
+        - cover.persiana_despacho
+        - cover.persiana_june
+        - cover.persiana_suite_terraza
+    - delay: '0:00:05'
+    - service: cover.stop_cover
+      data:
+        entity_id:
+        - cover.persiana_ibai
+        - cover.persiana_despacho
+        - cover.persiana_june
+        - cover.persiana_suite_terraza
+    - delay: '0:05:00'
+    - service: cover.close_cover
+      data:
+        entity_id:
+        - cover.persiana_salon_puerta_pasillo
+        - cover.persiana_salon_ventana_pasillo
+        - cover.persiana_salon_ventana_sofa
+        - cover.persianas_suite
+        - cover.persianas_cocina
+        - cover.persiana_despacho
+        - cover.persiana_eider
+        - cover.persiana_june
+        - cover.persiana_ibai
+        - cover.persiana_bano_lavabo
+        - cover.persiana_bano_puerta
+  add_logbook_entry:
+    alias: (TEST) Add Logbook
+    sequence:
+    - service: logbook.log
+      data_template:
+        name: Logbook test
+        message: is being used
+        # Optional
+        entity_id: script.add_logbook_entry
+        domain: script
+  test_script:
+    alias: (TEST) Script de pruebas
+    sequence:
+    - service: notify.telegram
+      data:
+        title: "*Home Assistant*"
+        message: Ejecutando test script
+    - service: media_player.turn_on
+      data:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+    - service: media_player.volume_set
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        volume_level: 0.10
+    - service: tts.google_say
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        message: 'Prueba'
+        language: 'es'
+    - service: media_player.volume_set
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        volume_level: 0.10
+    - service: notify.telegram
+      data:
+        message: ""
+        data:
+          photo: 
+            - file: /share/motion/lastsnap.jpg
+              caption: "Foto test"
+#          inline_keyboard:
+#            - 'Task 1: /command1, Task 2: /command2'
+#            - 'Task 3: /command3, Task 4: /command4'
+  reiniciando_ha:
+    alias: Reinicio HomeAssistant
+    sequence:
+      - service: notify.telegram
+        data: 
+          title: '*Home Assistant*'
+          message: 'Reiniciado.'
+      - service: media_player.turn_on
+        data:
+          entity_id: 
+          - media_player.google_home_despacho
+          - media_player.google_home_salon
+      - service: media_player.volume_set
+        data_template:
+          entity_id: 
+          - media_player.google_home_despacho
+          - media_player.google_home_salon
+          volume_level: 0.50
+      - service: tts.google_say
+        data_template:
+          entity_id: 
+          - media_player.google_home_despacho
+          - media_player.google_home_salon
+          message: 'Se ha reiniciado HomeAssistant.'
+          language: 'es'
+      - service: mqtt.publish
+        data:
+          topic: "cmnd/sonoffs/power1"
+          payload: "OFF"
+      - service: mqtt.publish
+        data:
+          topic: "cmnd/sonoffs/power2"
+          payload: "OFF"
+      - service: mqtt.publish
+        data:
+          topic: "cmnd/sonoffs/power3"
+          payload: "OFF" 
+      - service: mqtt.publish
+        data:
+          topic: "cmnd/sonoffs/power4"
+          payload: "OFF"
+      - service: mqtt.publish
+        data:
+          topic: "cmnd/sonoffs/POWER"
+          payload: "OFF"
+      - service: light.turn_off
+        data:
+          entity_id: 
+          - light.luces_peques
+          - light.luz_trasera
+          - light.luz_garaje
+          - light.luz_tendedero
+          - light.luz_piscina
+          - light.luz_entrada_coche
+          - light.luz_fachada
+          - light.luz_june
+          - light.luz_ibai
+          - light.luz_eider
+      - service: media_player.volume_set
+        data_template:
+          entity_id: 
+          - media_player.google_home_despacho
+          - media_player.google_home_salon
+          volume_level: 0.30
+      - condition: state
+        entity_id: input_boolean.debug_mode
+        state: 'off'
+      - service: mqtt.publish
+        data:
+          topic: "Picasso/Actuador/Enchufe/04/set"
+          payload: "K|04|0"
+      - service: mqtt.publish
+        data:
+          topic: "Picasso/Actuador/Enchufe/03/set"
+          payload: "K|03|0"
+#      - service: mqtt.publish # Despacho
+#        data:
+#          topic: "Picasso/Actuador/Enchufe/02/set"
+#          payload: "K|02|0"
+#      - service: mqtt.publish # Salón
+#        data:
+#          topic: "Picasso/Actuador/Enchufe/01/set"
+#          payload: "K|01|0"

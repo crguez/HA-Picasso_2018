@@ -1,0 +1,39 @@
+crs_magenta:
+  # Main Stuff #
+  primary-color: "#e20074" # Primary (most of the UI)
+  primary-background-color: "#EFEFEF" # Primary background colour (dialogs, e.t.c)
+  secondary-background-color: "#DFDFDF" # Secondary background colour (main UI background)
+  paper-card-background-color: "#FFFFFF" # Card background colour
+  primary-text-color: "#777777" # Primary text colour
+  secondary-text-color: "#AAAAAA)" # Secondary text colour
+  disabled-text-color: "#BBBBBB" # Disabled text colour
+  divider-color: "#777777" # Divider colour
+  paper-card-header-color: "#000000" # Card header text colour
+
+  # Paper Item #
+  paper-item-icon-color: "#e20074" # Icon colour
+  paper-item-icon-active-color: "#55FF55"
+
+  # Nav Menu #
+  paper-listbox-background-color: "#000000" # Listbox background colour
+  paper-listbox-color: "#FFFFFF" # Listbox text colour
+  paper-grey-200: "#B0B0B0" # Listbox selected item background colour
+  paper-grey-50: "#777777"
+
+  # Switches #
+  paper-toggle-button-checked-ink-color: "#555555"
+  paper-toggle-button-checked-button-color: "#e20074"
+  paper-toggle-button-checked-bar-color: "#000000"
+
+  # Sliders #
+  paper-slider-knob-color: "#000000"
+  paper-slider-knob-start-color: "#333333"
+  paper-slider-pin-color: "#e20074"
+  paper-slider-active-color: "#e20074"
+  paper-slider-secondary-color: "#555555"
+
+  # Tables #
+  table-row-background-color: "#EEEEEE"
+  table-row-alternative-background-color: "#CCCCCC"
+
+  label-badge-red: "#e20074"

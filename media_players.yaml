@@ -1,0 +1,21 @@
+#========================================
+# REPRODUCTORES                          
+#========================================
+  - platform: kodi
+    host: 192.168.2.151
+    name: "KODI Salón"
+#    turn_off_action: suspend
+    enable_websocket: false
+  - platform: kodi
+    host: 192.168.2.154
+    name: "KODI Suite"
+#    turn_off_action: suspend
+    enable_websocket: false
+  - platform: kodi
+    host: 192.168.2.100
+    name: "KODI Despacho"
+    username: kodi
+    password: kodi
+    enable_websocket: false
+#    turn_off_action: quit
+

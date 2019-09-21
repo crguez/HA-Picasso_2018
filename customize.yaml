@@ -1,0 +1,36 @@
+  group.all_automations:
+    name: "Automations"
+    friendly_name: "Automatizaciones"
+    hidden: false
+  group.all_scripts:
+    name: "Scripts"
+    friendly_name: "Guiones"
+    hidden: false
+
+#======================================
+# NEVER REQUIRED. WORKING FINE
+#  cover.persiana_despacho:
+#    device_class: garage
+#    homebridge_cover_type: garage_door
+#    google_assistant: true
+#    google_assistant_type: switch
+#--------------------------------------
+
+#    #binary_sensor.floorplan
+#      #custom_ui_state_card: state-card-floorplan
+###      #config: !include floorplan_0.yaml
+#    #  device_tracker.f41ba18057c6:
+#    #    entity_picture: /local/apple.png
+##    #    friendly_name: iPad Carlos
+#    #  device_tracker.38d5473d4ef9:
+#    #    entity_picture: /local/carlos.png
+#    #    friendly_name: Asus Carlos
+#    #  device_tracker.704d7bae3628:
+#    #    entity_picture: /local/marian.png
+#    #    friendly_name: Asus Marian
+#    #  device_tracker.24920e0707d8:
+#    #    entity_picture: /local/carlos.png
+#    #    friendly_name: Samsung Carlos
+#    #  device_tracker.24920e1ea776:
+#    #    entity_picture: /local/marian.png
+#    #    friendly_name: Samsung Marian

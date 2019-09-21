@@ -1,0 +1,17 @@
+title: Hogar, Picasso hogar...
+views:
+    # View tab title.
+  - title: Ejemplo
+    panel: true
+    # Makes the first card fill the view
+    cards:
+        # The markdown card will render markdown text.
+      - type: markdown
+        title: Lovelace
+        content: >
+          Welcome to your **Lovelace UI**.
+      - type: history-graph
+        title: 'Termostato Salón'
+        entities:
+          - climate.picasso
+          - picasso.current_temperature

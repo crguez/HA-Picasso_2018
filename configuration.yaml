@@ -1,0 +1,264 @@
+#=== CONFIGURACION DE INSTALACION =========================
+homeassistant:
+  name: Picasso
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: 17
+  unit_system: metric
+  time_zone: Europe/Madrid
+  customize: !include customize.yaml
+  auth_providers:
+  - type: homeassistant
+#  - type: legacy_api_password
+#      api_password: !secret http_password  
+  - type: trusted_networks
+    trusted_networks:
+    - 192.168.2.0/24
+  whitelist_external_dirs:
+    - /share/motion
+tplink:
+  discovery: true
+ifttt:
+  key: !secret ifttt_key
+telegram_bot:
+  - platform: polling
+    api_key: !secret telegram_api_key
+    allowed_chat_ids:
+      - 757686216
+http:
+  api_password: !secret api_password
+  base_url: !secret base_url_https
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+tts:
+  - platform: google_translate
+    service_name: google_say
+    language: 'es'
+    cache: true
+    time_memory: 300
+device_tracker:
+  - platform: tplink
+    host: !secret router_ip
+    username: !secret router_user
+    password: !secret router_password
+    new_device_defaults:
+      track_new_devices: true
+      hide_if_away: false
+  - platform: nmap_tracker
+    track_new_devices: true
+    interval_seconds: 300 # devide_Tracker... segundos entre escaneos
+    consider_home: 300 # Tiempo de desconexión antes de considerar que está fuera.
+    hosts: 192.168.2.101-149
+    home_interval: 10 # No lo escanea para preservar batería
+    scan_options: " --privileged -sP -F --host-timeout 5s "
+#    consider_home: 0:05:00
+#  - platform: bluetooth_tracker
+#     track_new_devices: True
+#     interval_seconds: 300
+#     consider_home: 300
+#  - platform: bluetooth_le_tracker
+#    track_new_devices: True
+#    interval_seconds: 12
+#    scan_duration: 10
+#  - platform: owntracks
+#    max_gps_accuracy: 200
+#    waypoints: True
+#    mqtt_topic: "owntracks/#"
+#    events_only: True
+#    waypoint_whitelist:
+#      - carlos
+#      - marian
+#    region_mapping:
+#      cabin: home
+#      office: work
+
+camera:
+  - platform: generic
+    name: Salón
+    still_image_url: !secret camera_ip
+    username: !secret camera_user
+    password: !secret camera_password
+  - platform: local_file
+    name: Despacho
+    file_path: /share/motion/lastsnap.jpg
+#    config: /config/motion.conf
+#    width: 1280
+#    height: 720
+#    snapshot_interval: 10
+android_ip_webcam:
+  - host: !secret ip_webcam_address
+    name: Camara Suite
+    username: !secret ip_webcam_user
+    password: !secret ip_webcam_password
+    sensors:
+      - audio_connections
+      - battery_level
+      - battery_temp
+      - battery_voltage
+      - light
+      - motion
+      - pressure
+      - proximity
+      - sound
+      - video_connections
+    switches:
+      - exposure_lock
+      - ffc
+      - focus
+      - gps_active
+      - night_vision
+      - overlay
+      - torch
+      - whitebalance_lock
+      - video_recording
+updater:
+  include_used_components: true
+frontend:
+    themes: !include_dir_merge_named themes/
+    javascript_version: latest
+#    extra_html_url:
+#      - /local/custom_ui/state-card-floorplan.html
+panel_iframe:
+#  configurator:
+#    title: Configurator
+#    icon: mdi:wrench
+#    url: https://hassio.local:3218
+  terminal:
+    title: Terminal
+    icon: mdi:console
+    url: https://localhost:7681
+  tasmoadmin:
+    title: Sonoffs
+    icon: mdi:lightbulb-on
+    url: https://localhost:9541
+#==== INCLUDE ====================================
+cover: !include covers.yaml
+group: !include groups.yaml
+sensor: !include sensors.yaml
+media_player: !include media_players.yaml
+notify: !include notifiers.yaml
+automation: !include automations.yaml
+zone: !include zones.yaml
+switch: !include switches.yaml
+binary_sensor: !include binary_sensors.yaml
+scene: !include scenes.yaml
+input_number: !include input_number.yaml
+input_boolean: !include input_boolean.yaml
+tradfri: !include tradfri.yaml
+panel_custom: !include panel_custom.yaml
+google_assistant: !include google_ass.yaml
+light: !include light.yaml
+script: !include scripts.yaml
+#cloud: !include cloud.yaml
+weather: !include weather.yaml
+mqtt: !include mqtt.yaml
+cast: !include cast.yaml
+#=== DISABLES ====================================
+#introduction:
+#=== ENABLES =====================================
+system_health:
+cloud:
+config:
+map:
+#ios: # Da un error en configuración => Pendiente de arreglar
+config:
+discovery:
+conversation: # Allows you to issue voice commands from the frontend in enabled browsers
+  # boolean_test:
+    # sentence: switch boolean_test
+    # action:
+      # service:input_boolean.toggle   
+hassio:
+# person:
+#   - name: Carlos
+#     id: carlos123
+#     device_trackers:
+#       - device_tracker.ipad_de_carlos
+#   - name: Marian
+#     id: marian123
+#     device_trackers:
+#       - device_tracker.ipad_de_marian
+#googlehome: # DEPRECATED
+#  devices:
+#  - host: 192.168.2.50
+#  - host: 192.168.2.51
+sun: # Track the sun
+timer:
+  tv_salon:
+    duration: '00:00:30'
+api: // 14.09.2019 
+alexa:
+  smart_home:
+#########################################################
+# REGISTRO DE EVENTOS
+# - Se empieza por el recorder y el resto depende de él.
+#########################################################
+recorder:
+  db_url: !secret maria_db_url
+  purge_keep_days: 10
+  include:
+    domains:
+      - climate
+      - automation
+      - sensor
+      - switch
+      - cover
+      - script
+      - light
+      - media_player
+      - input_boolean
+      - input_number
+      - binary_sensor
+      - device_tracker
+  exclude:
+    # domains:
+    #   - darksky
+    #   - yr
+    #   - yweather
+    #   - automation
+    #   - updater
+    entities:
+      # - sun.sun
+      - sensor.last_boot
+      - sensor.date
+      - sensor.broadcom_adsl_router_kbytesec_received
+      - sensor.broadcom_adsl_router_packets_received
+      - sensor.broadcom_adsl_router_kbytesec_sent
+      - sensor.broadcom_adsl_router_packets_sent
+      - sensor.dark_sky_apparent_temperature
+history: # It depends on the recorder component for storing the data
+history_graph:
+  gr1:
+    name: Temperaturas
+    hours_to_show: 120
+    refresh: 0
+    entities:
+      - climate.picasso  
+logger:
+  default: warning
+  logs:
+#    custom_components.lyric: debug
+#    custom_components.climate.lyric: debug
+    homeassistant.components.mqtt: debug    
+#    homeassistant.components.recorder: debug
+    homeassistant.compoments.google_ass: debug
+logbook:
+  include:
+    domains:
+      - switch
+      - cover
+      - light
+      - sensor
+      - script
+  exclude:
+    entities:
+      - sensor.last_boot
+      - sensor.date
+      - sensor.yr_weather
+      - sensor.tiempo
+      - sensor.min_temp
+      - sensor.max_temp
+      - sensor.dark_sky
+      - sensor.hora_despertador
+      - sensor.hora_fin_despertador
+

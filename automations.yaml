@@ -1,0 +1,615 @@
+  - alias: "Timer Start"
+    id: timer_start
+    trigger:
+    - platform: state
+      entity_id: light.luz_arbol_navidad
+      to: 'on'
+    action:
+    - service: timer.start
+      entity_id: timer.tv_salon
+
+# When timer is stopped, the time run out, another message is sent
+  - alias: "Timer Stop"
+    id: timer_stop
+    trigger:
+    - platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.tv_salon
+    action:
+      - service: notify.telegram
+        data: 
+          title: '*Home Assistant*'
+          message: 'Temporizador parado'
+#################################################
+# REINICIO DE HOMEASSISTANT
+#################################################
+  - alias: "Arranque HA"
+    id: power_up
+    initial_state: true
+    trigger:
+      platform: homeassistant
+      event: start
+    action:
+      service: script.turn_on
+      entity_id: script.reiniciando_ha   
+#################################################
+# DETECCION PRESENCIA EN DESPACHO
+#################################################
+  - alias: "Presencia despacho"
+    id: presencia_despacho
+    initial_state: True
+    trigger:
+      - platform: state
+        entity_id: sensor.sn1_pir
+        from: 'standby'
+        to: 'motion detected'
+    action:
+      - service: notify.telegram
+        data: 
+          title: '*Home Assistant*'
+          message: 'Presencia detectada en despacho'
+      - service: notify.telegram
+        data: 
+          message: "-"
+          data:
+            photo: 
+              - file: /share/motion/lastsnap.jpg
+                caption: "Despacho"
+              
+#################################################
+# LUCES TRADFRI (NIÑOS)
+#################################################
+  - alias: Apagar luces niños
+    id: Lights_Off_1
+    initial_state: true
+    trigger:
+    - platform: time
+      at: '22:30:00'
+      # at: '20:00:00' # for testing purposes
+    action:
+    - service: light.turn_off
+      entity_id: 
+      - light.luces_peques
+      - light.luz_june
+      - light.luz_ibai
+      - light.luz_eider
+#------------------------------------------------      
+  - alias: Mantener luces apagadas
+    id: Lights_Off_2
+    initial_state: true
+    trigger:
+    - platform: time_pattern
+      minutes: /15
+#      seconds: 0
+    condition:
+      condition: or
+      conditions:
+      - condition: time
+        after: '22:30:00'
+        before: '23:59:59'
+      - condition: time
+        after: '00:00:00'
+        before: '17:30:00'
+    action:
+    - service: light.turn_off
+      entity_id: 
+      - light.luces_peques
+      - light.luz_june
+      - light.luz_ibai
+      - light.luz_eider
+
+#################################################
+# CAMBIAR TEMA DE HA
+#################################################
+  - alias: Set dark theme for the night
+    id: Theme_night
+    initial_state: True
+    trigger:
+    - platform: time
+      at: '21:00'
+    action:
+    - service: frontend.set_theme
+      data:
+        name: crs_audi
+  - alias: Set dark theme for the day
+    id: Theme_day
+    initial_state: True
+    trigger:
+    - platform: time
+      at: '8:00'
+    action:
+    - service: frontend.set_theme
+      data:
+        name: default
+
+#################################################
+# ARBOL DE NAVIDAD
+#################################################
+  - alias: Encender árbol Navidad laborables
+    id: Encender_Arbol_lab
+    initial_state: False
+    trigger:
+      platform: time
+      at: '18:30:00'
+    condition:
+      condition: and
+      conditions:
+      - condition: time
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+      - condition: state
+        entity_id: input_boolean.at_home
+        state: 'on'
+    action:
+      #service: switch.turn_on
+      service: light.turn_on
+      entity_id:
+      #- switch.enchufe_arbol
+      - light.luz_arbol_navidad
+  - alias: Encender árbol Navidad fin de semana
+    id: Encender_Arbol_finde
+    initial_state: False
+    trigger:
+      platform: time
+      at: '17:30:00'
+    condition:
+      condition: and
+      conditions:
+      - condition: time
+        weekday:
+        - sat
+        - sun
+      - condition: state
+        entity_id: input_boolean.at_home
+        state: 'on'
+    action:
+      #service: switch.turn_on
+      service: light.turn_on
+      entity_id:
+      #- switch.enchufe_arbol
+      - light.luz_arbol_navidad
+  - alias: Apagar árbol Navidad
+    id: Apagar_Arbol
+    initial_state: False
+    trigger:
+      platform: time
+      at: '22:00:30'
+    action:
+      #service: switch.turn_off
+      service: light.turn_off
+      entity_id:
+      #- switch.enchufe_arbol
+      - light.luz_arbol_navidad
+
+#################################################
+# PERSIANAS
+#################################################
+  - alias: Bajar persianas de noche
+    id: Persianas_Bajas
+    initial_state: True
+    condition:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: sensor.season
+            state: 'Winter'
+          - condition: state
+            entity_id: sensor.season
+            state: 'Summer'
+          - condition: state
+            entity_id: sensor.season
+            state: 'Spring'
+    trigger:
+      platform: sun
+      event: sunset
+      offset: 00:05:00
+    action:
+      service: script.turn_on
+      entity_id: script.bajando_persianas      
+
+#################################################
+# RAIN
+#################################################
+# INICIO DE LLUVIA:
+  - alias: Inicio lluvia
+    id: Inicio Lluvia
+    initial_state: True
+    trigger:
+    - platform: state
+      entity_id: sensor.tiempo_condition
+      to: 'lluvia moderada'
+    - platform: state
+      entity_id: sensor.tiempo_condition
+      to: 'lluvia ligera'
+    - platform: state
+      entity_id: sensor.tiempo_condition
+      to: 'lluvia intensa'
+    action:
+    - service: binary_sensor.turn_on
+      data:
+        entity_id: binary_sensor.raining
+# PARO DE LLUVIA        
+  - alias: Paro lluvia
+    id: Paro Lluvia
+    initial_state: True
+    trigger:
+    - platform: state
+      entity_id: sensor.tiempo_condition
+      to: 'algo de nubes'
+    - platform: state
+      entity_id: sensor.tiempo_condition
+      to: 'soleado'
+    action:
+    - service: binary_sensor.turn_off
+      data:
+        entity_id: binary_sensor.raining
+# AUTOMATIZACIONES ASOCIADAS        
+  - alias: Bajar persianas con lluvia
+    id: Persianas_lluvia
+    initial_state: True
+    trigger:
+    - platform: state
+      entity_id: binary_sensor.raining
+      from: 'off'
+      to: 'on'
+    action:
+    - service: cover.close_cover
+      data:
+        entity_id:
+        - cover.persiana_salon_puerta_pasillo
+        - cover.persiana_salon_ventana_pasillo
+        - cover.persiana_suite_vestidor
+        - cover.persiana_suite_derecha
+        - cover.persiana_suite_izquierda
+        - cover.persiana_suite_central
+        - cover.persiana_bano_lavabo
+        - cover.persiana_bano_puerta
+        - cover.persianas_cocina
+        - cover.persiana_eider
+    - service: notify.telegram
+      data:
+        message: ¡Está lloviendo en casa! Yo bajo las persianas, tú recoge la ropa.
+        title: "*Home Assistant*"
+
+#################################################
+# TV SUITE
+#################################################
+  - alias: Apagar TV Suite
+    id: TV_Suite_Off
+    initial_state: True
+    trigger:
+      platform: time
+      at: 01:30:00
+    action:
+      service: switch.turn_off
+      entity_id:
+      - switch.enchufe_suite
+#------------------------------------------------
+  - alias: Encender TV Suite
+    id: TV_Suite_On
+    initial_state: True
+    trigger:
+      platform: time
+      at: '22:00:00'
+    action:
+      service: switch.turn_on
+      entity_id:
+      - switch.enchufe_suite
+#################################################
+# TV SALON
+#################################################
+  - alias: Apagar TV Salón
+    id: TV_Salon_Off
+    initial_state: True
+    trigger:
+      - platform: time
+        at: '21:15:00'
+      - platform: time
+        at: '07:30:00'
+    condition:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - sun
+    action:
+      service: switch.turn_off
+      entity_id:
+      - switch.enchufe_salon
+#------------------------------------------------
+  - alias: Apagar TV Salón fin de semana
+    id: TV_Salon_Off
+    initial_state: True
+    trigger:
+      platform: time
+      at: '22:00:00'
+    condition:
+    - condition: time
+      weekday:
+      - fri
+      - sat
+    action:
+      service: switch.turn_off
+      entity_id:
+      - switch.enchufe_salon
+#################################################
+# OFFICE SWITCHES
+#################################################
+  - alias: Apagar PC
+    id: PC_Off
+    initial_state: True
+    trigger:
+      platform: time
+      at: '1:00:00'
+    action:
+      service: switch.turn_off
+      entity_id:
+      - switch.enchufe_despacho
+#################################################
+# ALIVE HOMEASSISTANT => Quitamos por repetición de evento
+#################################################
+#  - alias: Arranque HomeAssistant
+#    id: HA_On
+#    initial_state: True
+#    trigger:
+#      platform: homeassistant
+#      event: start
+#    action:
+#      - service: notify.telegram
+#        data: 
+#          title: '*Home Assistant*'
+#          message: 'Reiniciado.'
+#################################################
+# ALIVE ARDUINO
+#################################################
+  - alias: Arduino Alive
+    id: Arduino_On
+    initial_state: False
+    trigger:
+    - entity_id: binary_sensor.arduino_gateway_1
+      from: 'off'
+      platform: state
+      to: 'on'
+    action:
+      - service: notify.telegram
+        data: 
+          title: '*Home Assistant*'
+          message: 'Gateway Arduino iniciado'
+#    - data:
+#        data:
+#          actions:
+#          - action: action_1
+#            icon: /static/icons/favicon-192x192.png
+#            title: Apagar luces
+#          - action: action_2
+#            icon: /static/icons/favicon-192x192.png
+#            title: Apagar enchufes
+#        message: Gateway 1 ON
+#      service: notify.html5
+#    - data:
+#        data:
+#          message: Gateway 1 ON
+#      service: notify.pushbullet
+
+#################################################
+# ALIVE WEATHER STATIONS
+#################################################
+  - alias: Weather Station 1 Alive
+    id: Weather1_on
+    initial_state: False
+    trigger:
+      platform: state
+      entity_id: binary_sensor.weather_station_1
+      from: 'off'
+      to: 'on'
+    action:
+      service: notify.telegram
+      data:
+        title: "*Home Assistant*"
+        message: SalasAtmo Salón ON
+
+  - alias: Weather Station 2 Alive
+    id: Weather2_on
+    initial_state: False
+    trigger:
+      platform: state
+      entity_id: binary_sensor.weather_station_2
+      from: 'off'
+      to: 'on'
+    action:
+    - service: notify.telegram
+      data:
+        title: "*Home Assistant*"
+        message: SalasAtmo Despacho ON
+
+
+#################################################
+# ALARM CLOCK
+#################################################
+  - alias: Wake Me Up
+    id: Wake_me_up
+    initial_state: True
+    trigger:
+    - platform: time_pattern
+      minutes: /1
+      # seconds: '0'
+    condition:
+      condition: or
+      conditions:
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: input_boolean.alarmstatus
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.alarmweekday
+          state: 'on'
+        - condition: time
+          weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+          - sat
+        - condition: template
+          value_template: '{{ now().time().strftime("%R") == states.sensor.alarm_time.state
+            }}'
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: input_boolean.alarmstatus
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.alarmweekday
+          state: 'off'
+        - condition: template
+          value_template: '{{ now().time().strftime("%R") == states.sensor.alarm_time.state
+            }}'
+    action:
+    - service: tts.google_say
+      data:
+        entity_id: media_player.kodi_suite
+        message: Good morning Sir. Time to Wake Up!
+    - service: cover.open_cover
+      entity_id:
+      - cover.persiana_suite_terraza
+    - delay: 00:00:15
+    - service: cover.stop_cover
+      entity_id:
+      - cover.persiana_suite_terraza
+    - service: notify.telegram
+      data:
+        title: "*Home Assistant*"
+        message: Alarma ON
+  - alias: Turn off Alarm
+    id: turn_off_alarm
+    initial_state: 'on'
+    trigger:
+    - platform: time_pattern
+      minutes: /1
+      # seconds: '0'
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.alarmstatus
+        state: 'on'
+      - condition: template
+        value_template: '{{ now().time().strftime("%R") == states.sensor.alarm_time_fin.state
+          }}'
+    action:
+    - service: notify.telegram
+      data:
+        title: HomeAssistant
+        message: Alarma OFF
+#################################################
+# LEAVE HOME
+#################################################
+  - alias: Salir de casa
+    id: leave_home
+    initial_state: True
+    trigger:
+      platform: state
+      entity_id: input_boolean.at_home
+      from: 'on'
+      to: 'off'
+    action:
+      service: script.turn_on
+      entity_id: script.leaving_home
+#################################################
+# ARRIVE HOME
+#################################################
+  - alias: Llegar a casa
+    id: arrive_home
+    initial_state: True
+    trigger:
+      platform: state
+      entity_id: input_boolean.at_home
+      from: 'off'
+      to: 'on'
+    action:
+      - service: script.turn_on
+        entity_id: script.arriving_home
+#################################################
+# IFTT SERVICE
+#################################################
+  - alias: Webhook service calls
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: ifttt_webhook_received
+      event_data:
+        action: call_service
+    action:
+      service_template: '{{ trigger.event.data.service }}'
+
+  - alias: Informar piscina
+    initial_state: 'on'
+    trigger:
+      - platform: event
+        event_type: ifttt_webhook_received
+        event_data:
+          action: automation
+    action:
+    - service_template: '{{ trigger.event.data.service1 }}'
+      data_template:
+        entity_id: '{{ trigger.event.data.entity_id1 }}'
+        value: '{{ trigger.event.data.value1 }}'
+    - service_template: '{{ trigger.event.data.service2 }}'
+      data_template:
+        entity_id: '{{ trigger.event.data.entity_id2 }}'
+        value: '{{ trigger.event.data.value2 }}'
+    - service_template: '{{ trigger.event.data.service3 }}'
+      data_template:
+        entity_id: '{{ trigger.event.data.entity_id3 }}'
+        value: '{{ trigger.event.data.value3 }}'
+    - service_template: '{{ trigger.event.data.service4 }}'
+      data_template:
+        entity_id: '{{ trigger.event.data.entity_id4 }}'
+        value: '{{ trigger.event.data.value4 }}'
+
+#################################################
+# ALIVE CHALLENGE
+#################################################
+  - alias: Comprobar dispositivos activos
+    id: alive_challenge
+    initial_state: True
+    trigger:
+    - platform: time_pattern
+      minutes: /30
+      # minutes: /1 # for tests
+      # seconds: 0
+    action:
+      - service: mqtt.publish
+        data:
+          topic: 'Picasso/Id1_P/Alive'
+          payload: '{"status": "OFF"}'
+      - service: mqtt.publish
+        data:
+          topic: 'Picasso/Id2_P/Alive'
+          payload: '{"status": "OFF"}'
+      - service: mqtt.publish
+        data:
+          topic: 'Picasso/Arduino/Gateway/1'
+          payload: '{"status": "OFF"}'
+      - service: mqtt.publish
+        data:
+          topic: 'Picasso/Id1_S/Command/Challege' # Alive challenge
+          payload: 'Challenge'
+      - service: mqtt.publish
+        data:
+          topic: 'Picasso/Id2_S/Command/Challege' # Alive challenge
+          payload: 'Challenge'
+      - service: mqtt.publish
+        data:
+          topic: 'Picasso/Actuador/Challenge/1/set' # Alive challenge
+          payload: 'C|00|0'
+      

@@ -1,0 +1,16 @@
+  alarmstatus:
+    name: Estado Despertador
+    initial: off
+    icon: mdi:alarm
+  alarmweekday:
+    name: Laborables
+    initial: on
+    icon: mdi:calendar
+  at_home:
+    name: En casa
+    icon: mdi:home-account
+    initial: on
+  debug_mode:
+    name: Debug Mode
+    icon: mdi:android-debug-bridge
+    initial: off
