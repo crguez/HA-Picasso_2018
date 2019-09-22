@@ -145,7 +145,7 @@ scene: !include scenes.yaml
 input_number: !include input_number.yaml
 input_boolean: !include input_boolean.yaml
 tradfri: !include tradfri.yaml
-panel_custom: !include panel_custom.yaml
+# panel_custom: !include panel_custom.yaml
 google_assistant: !include google_ass.yaml
 light: !include light.yaml
 script: !include scripts.yaml
