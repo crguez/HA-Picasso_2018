@@ -21,12 +21,6 @@
   
   - platform: mqtt  
     state_topic: "bruh/sensornode1/status"  
-    icon: mdi:run-fast
-    name: "SN1 PIR"  
-    value_template: '{{ value_json.motion }}'  
-  
-  - platform: mqtt  
-    state_topic: "bruh/sensornode1/status"  
     name: "SN1 Temperatura"  
     unit_of_measurement: "°C"  
     value_template: '{{ value_json.temperature | round(1) }}'  
@@ -37,6 +31,7 @@
     unit_of_measurement: "°C"
     value_template: '{{ value_json.heatIndex | round(1) }}'
 
+#--- Luna
   - platform: moon
 
 #--- MIN/MAX de temperatura

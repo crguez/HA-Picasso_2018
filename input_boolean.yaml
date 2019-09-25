@@ -14,3 +14,11 @@
     name: Debug Mode
     icon: mdi:android-debug-bridge
     initial: off
+  piscina_informada:
+    name: Piscina informada
+    icon: mdi:pool
+    initial: off
+  its_raining:
+    name: Está lloviendo
+    icon: mdi:water
+    initial: off

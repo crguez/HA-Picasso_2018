@@ -1,0 +1,14 @@
+  weather_condition:
+    name: Weather condition
+    options:
+      - 'lluvia moderada'
+      - 'chubasco'
+      - 'llovizna ligera'
+      - 'lluvia ligera'
+      - 'lluvia intensa'      
+      - 'algo de nubes'
+      - 'soleado'
+      - 'nubes dispersas'
+      - 'nubes rotas'
+      - 'desconocido'
+    initial: 'desconocido'

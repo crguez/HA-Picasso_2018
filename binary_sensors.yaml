@@ -1,25 +1,36 @@
   - platform: mqtt
+    device_class: connectivity
     state_topic: 'Picasso/Arduino/Gateway/1'
     name: 'Arduino Gateway 1'
     value_template: '{{ value_json.status }}'
   - platform: mqtt
+    device_class: connectivity
     state_topic: 'Picasso/Id2_P/Alive'
     name: 'Weather Station 2'
     value_template: '{{ value_json.status }}'
   - platform: mqtt
+    device_class: connectivity
     state_topic: 'Picasso/Id1_P/Alive'
     name: 'Weather Station 1'
     value_template: '{{ value_json.status }}'
   - platform: template
     sensors:
-      raining:
+      moisture:
+        device_class: moisture
         friendly_name: "Está lloviendo"
         value_template: >-
-          {{ states('states.yr_precipitation') | float > 0.5 }}
+          {{ states('states.yr_weather_precipitation') | float > 0.5 }}
   - platform: template
     sensors:
       sun_up:
         friendly_name: "Es de día"
         value_template: >-
           {{ states.sun.sun.attributes.elevation | float > 0 }}
+  - platform: mqtt
+    state_topic: "bruh/sensornode1/status"  
+    device_class: motion
+    value_template: '{{ value_json.motion }}'
+    payload_on: 'On'
+    payload_off: 'Off'
+    name: "SN1 PIR"          
 

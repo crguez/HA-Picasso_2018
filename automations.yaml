@@ -38,12 +38,12 @@
 #################################################
   - alias: "Presencia despacho"
     id: presencia_despacho
-    initial_state: True
+    initial_state: false
     trigger:
       - platform: state
-        entity_id: sensor.sn1_pir
-        from: 'standby'
-        to: 'motion detected'
+        entity_id: binary_sensor.sn1_pir
+        from: 'off'
+        to: 'on'
     action:
       - service: notify.telegram
         data: 
@@ -56,7 +56,38 @@
             photo: 
               - file: /share/motion/lastsnap.jpg
                 caption: "Despacho"
-              
+            inline_keyboard:
+              - '/desactivar'
+  - alias: Desconectar alarma
+    id: desconectar_alarma
+    hide_entity: True
+    trigger:
+      platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/desactivar'
+    action:
+      - service: notify.telegram
+        data: 
+          title: '*Home Assistant*'
+          message: 'Alarma despacho desactivada'
+      - service: automation.turn_off
+        data:
+          entity_id: 
+          - automation.presencia_despacho
+#################################################
+# RESETEAR ESTADO DE PISCINA INFORMADA
+#################################################              
+  - alias: Resetear piscina informada
+    id: reset_piscina
+    initial_state: true
+    trigger:
+    - platform: time
+      at: '00:00:00'
+    action:
+    - service: input_boolean.turn_off
+      entity_id: 
+      - input_boolean.piscina_informada
 #################################################
 # LUCES TRADFRI (NIÑOS)
 #################################################
@@ -197,13 +228,13 @@
         conditions:
           - condition: state
             entity_id: sensor.season
-            state: 'Winter'
+            state: 'winter'
           - condition: state
             entity_id: sensor.season
-            state: 'Summer'
+            state: 'spring'
           - condition: state
             entity_id: sensor.season
-            state: 'Spring'
+            state: 'autumn'
     trigger:
       platform: sun
       event: sunset
@@ -225,15 +256,50 @@
       to: 'lluvia moderada'
     - platform: state
       entity_id: sensor.tiempo_condition
+      to: 'chubasco'
+    - platform: state
+      entity_id: sensor.tiempo_condition
+      to: 'llovizna ligera'
+    - platform: state
+      entity_id: sensor.tiempo_condition
       to: 'lluvia ligera'
     - platform: state
       entity_id: sensor.tiempo_condition
       to: 'lluvia intensa'
     action:
-    - service: binary_sensor.turn_on
+    - service: script.turn_on
       data:
-        entity_id: binary_sensor.raining
-# PARO DE LLUVIA        
+        entity_id: script.inicio_lluvia
+# PARO DE LLUVIA
+  - alias: paso_desde_lluvia
+    id: Paso desde lluvia
+    initial_state: True
+    trigger:
+    - platform: state
+      entity_id: input_selector.weather_condition
+      to: soleado
+#        - algo de nubes
+#        - soleado
+#        - nubes dispersas
+#        - nubes rotas
+    action: 
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.its_raining
+  - alias: paso_a_lluvia
+    id: Paso a lluvia
+    initial_state: True
+    trigger:
+    - platform: state
+      entity_id: input_selector.weather_condition
+      to: 'lluvia intensa'
+#      - 'lluvia moderada'
+#      - 'chubasco'
+#      - 'llovizna ligera'
+#      - 'lluvia ligera'
+#      - 'lluvia intensa'      
+    action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.its_raining
   - alias: Paro lluvia
     id: Paro Lluvia
     initial_state: True
@@ -244,17 +310,23 @@
     - platform: state
       entity_id: sensor.tiempo_condition
       to: 'soleado'
+    - platform: state
+      entity_id: sensor.tiempo_condition
+      to: 'nubes dispersas'
+    - platform: state
+      entity_id: sensor.tiempo_condition
+      to: 'nubes rotas'
     action:
-    - service: binary_sensor.turn_off
+    - service: script.turn_on
       data:
-        entity_id: binary_sensor.raining
-# AUTOMATIZACIONES ASOCIADAS        
+        entity_id: script.paro_lluvia
+# AUTOMATIZACIONES ASOCIADAS                  => CREO QUE NO SE USA
   - alias: Bajar persianas con lluvia
     id: Persianas_lluvia
     initial_state: True
     trigger:
     - platform: state
-      entity_id: binary_sensor.raining
+      entity_id: binary_sensor.moisture
       from: 'off'
       to: 'on'
     action:
@@ -328,8 +400,12 @@
     id: TV_Salon_Off
     initial_state: True
     trigger:
-      platform: time
-      at: '22:00:00'
+      - platform: time
+        at: '11:00:00'
+      - platform: time
+        at: '17:00:00'
+      - platform: time
+        at: '22:00:00'
     condition:
     - condition: time
       weekday:
@@ -559,6 +635,9 @@
         event_data:
           action: automation
     action:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.piscina_informada
     - service_template: '{{ trigger.event.data.service1 }}'
       data_template:
         entity_id: '{{ trigger.event.data.entity_id1 }}'

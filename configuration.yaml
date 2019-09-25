@@ -144,6 +144,7 @@ binary_sensor: !include binary_sensors.yaml
 scene: !include scenes.yaml
 input_number: !include input_number.yaml
 input_boolean: !include input_boolean.yaml
+input_select: !include input_select.yaml
 tradfri: !include tradfri.yaml
 # panel_custom: !include panel_custom.yaml
 google_assistant: !include google_ass.yaml
@@ -237,11 +238,11 @@ history_graph:
 logger:
   default: warning
   logs:
-#    custom_components.lyric: debug
+    custom_components.lyric: debug
 #    custom_components.climate.lyric: debug
-    homeassistant.components.mqtt: debug    
+#    homeassistant.components.mqtt: debug    
 #    homeassistant.components.recorder: debug
-    homeassistant.compoments.google_ass: debug
+#    homeassistant.compoments.google_ass: debug
 logbook:
   include:
     domains:
@@ -250,6 +251,7 @@ logbook:
       - light
       - sensor
       - script
+      - automation
   exclude:
     entities:
       - sensor.last_boot

@@ -3,7 +3,6 @@
     api_key: !secret darksky_key
     mode: daily
 
-
   - platform: openweathermap
     api_key: !secret openweather_key
     mode: hourly

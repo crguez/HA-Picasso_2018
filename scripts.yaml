@@ -1,9 +1,20 @@
   paro_lluvia:
     alias: Paro lluvia
     sequence:
-    - condition: state
-      entity_id: binary_sensor.raining
-      state: 'on'
+    - service: logbook.log
+      data_template:
+        name: HA Picasso
+        message: Script Run
+        # Optional
+        domain: script
+        entity_id: script.paro_lluvia
+#    - condition: state # ya viene disparado por el weather condition
+#      entity_id: binary_sensor.raining
+#      state: 'on'
+#    - service: binary_sensor.turn_off
+#      data:
+#        entity_id:
+#        - binary_sensor.raining  
     - service: media_player.turn_on
       data:
         entity_id: 
@@ -14,31 +25,39 @@
         entity_id: 
         - media_player.google_home_despacho
         - media_player.google_home_salon
-        volume_level: 0.75
+        volume_level: 0.50
     - service: tts.google_say
       data_template:
         entity_id: 
         - media_player.google_home_despacho
         - media_player.google_home_salon
-        message: '¡Vaya!, parece que ha dejado de llover. Puedes subir las persianas.'
+        message: '¡Muy bien!, parece que ha dejado de llover. Puedes subir las persianas.'
         language: 'es'
+    - delay: '00:00:10'
     - service: media_player.volume_set
       data_template:
         entity_id: 
         - media_player.google_home_despacho
         - media_player.google_home_salon
         volume_level: 0.30    
-    - service: binary_sensor.turn_off
-      data:
-        entity_id:
-        - binary_sensor.raining  
 #============================================        
   inicio_lluvia:
     alias: Inicio lluvia
     sequence:
-    - condition: state
-      entity_id: binary_sensor.raining
-      state: 'off'
+    - service: logbook.log
+      data_template:
+        name: HA Picasso
+        message: Script Run
+        # Optional
+        domain: script
+        entity_id: script.inicio_lluvia
+#    - condition: state
+#      entity_id: binary_sensor.moisture
+#      state: 'off'
+#    - service: binary_sensor.turn_on
+#      data:
+#        entity_id:
+#        - binary_sensor.moisture
     - service: media_player.turn_on
       data:
         entity_id: 
@@ -49,7 +68,7 @@
         entity_id: 
         - media_player.google_home_despacho
         - media_player.google_home_salon
-        volume_level: 0.75
+        volume_level: 0.50
     - service: tts.google_say
       data_template:
         entity_id: 
@@ -57,29 +76,26 @@
         - media_player.google_home_salon
         message: '¡Vaya!, parece que ha empezado a llover. Bajo las persianas para que no se mojen las ventanas.'
         language: 'es'
+    - delay: '00:00:10'
     - service: media_player.volume_set
       data_template:
         entity_id: 
         - media_player.google_home_despacho
         - media_player.google_home_salon
         volume_level: 0.30    
-    - service: binary_sensor.turn_on
-      data:
-        entity_id:
-        - binary_sensor.raining
     - service: cover.close_cover
       data:
         entity_id:
-#        - cover.persiana_salon_puerta_pasillo
-#        - cover.persiana_salon_ventana_pasillo
-#        - cover.persiana_suite_vestidor
-#        - cover.persiana_suite_derecha
-#        - cover.persiana_suite_izquierda
-#        - cover.persiana_suite_central
-#        - cover.persiana_bano_lavabo
-#        - cover.persiana_bano_puerta
-#        - cover.persianas_cocina
-#        - cover.persiana_eider
+        - cover.persiana_salon_puerta_pasillo
+        - cover.persiana_salon_ventana_pasillo
+        - cover.persiana_suite_vestidor
+        - cover.persiana_suite_derecha
+        - cover.persiana_suite_izquierda
+        - cover.persiana_suite_central
+        - cover.persiana_bano_lavabo
+        - cover.persiana_bano_puerta
+        - cover.persianas_cocina
+        - cover.persiana_eider
         - cover.persiana_despacho
     - service: notify.telegram
       data:
@@ -326,8 +342,8 @@
         name: Logbook test
         message: is being used
         # Optional
-        entity_id: script.add_logbook_entry
         domain: script
+        entity_id: script.add_logbook_entry
   test_script:
     alias: (TEST) Script de pruebas
     sequence:
@@ -386,7 +402,7 @@
           entity_id: 
           - media_player.google_home_despacho
           - media_player.google_home_salon
-          volume_level: 0.50
+          volume_level: 0.10
       - service: tts.google_say
         data_template:
           entity_id: 
@@ -394,6 +410,7 @@
           - media_player.google_home_salon
           message: 'Se ha reiniciado HomeAssistant.'
           language: 'es'
+      - delay: '00:00:10'
       - service: mqtt.publish
         data:
           topic: "cmnd/sonoffs/power1"
