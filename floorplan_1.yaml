@@ -9,9 +9,15 @@
 
         - name: Switches
           entities:
+<<<<<<< HEAD
              - switch.enchufe_despacho
              - switch.enchufe_suite
              - switch.enchufe_fachada
+=======
+             - switch.despacho
+             - switch.suite
+             - switch.luz_fachada
+>>>>>>> 48f9c9b51d239d0a4f8ae51a23eb72d520b99aab
           states:
             - state: 'on'
               class: 'doorbell-on'
@@ -32,9 +38,15 @@
 
         - name: Luces
           entities:
+<<<<<<< HEAD
             - light.luz_ibai
             - light.luz_june
             - light.luz_eider  
+=======
+            - light.ibai
+            - light.june
+            - light.eider  
+>>>>>>> 48f9c9b51d239d0a4f8ae51a23eb72d520b99aab
           states:
             - state: 'on'
               class: 'light-on'

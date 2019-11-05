@@ -17,7 +17,6 @@
 #Zenfone (Carlos)
       #- device_tracker.38d5473d4ef9 # Asus por NMAP
       - device_tracker.asus_z017d # Asus por BT
-
 #====== PESTAÑAS PRINCIPALES =====
 #----------------------------------------      
   zones:

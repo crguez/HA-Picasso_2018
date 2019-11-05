@@ -71,7 +71,6 @@ device_tracker:
 #    region_mapping:
 #      cabin: home
 #      office: work
-
 camera:
   - platform: generic
     name: Salón

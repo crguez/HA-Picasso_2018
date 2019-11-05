@@ -304,4 +304,3 @@
     state_open: "OPEN"
     state_closed: "CLOSE"
     optimistic: false
-

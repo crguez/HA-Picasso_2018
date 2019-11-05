@@ -1,0 +1,24 @@
+sensor.ipad_de_carlos_battery_state:
+  name:
+  platform: ios
+  unique_id: state_ipad_de_carlos
+sensor.ipad_de_carlos_battery_level:
+  name:
+  platform: ios
+  unique_id: level_ipad_de_carlos
+light.june:
+  name:
+  platform: tradfri
+  unique_id: light-7e15415204400019-65539
+light.eider:
+  name:
+  platform: tradfri
+  unique_id: light-7e15415204400019-65538
+light.ibai:
+  name:
+  platform: tradfri
+  unique_id: light-7e15415204400019-65537
+light.ninos:
+  name:
+  platform: tradfri
+  unique_id: group-7e15415204400019-131073
