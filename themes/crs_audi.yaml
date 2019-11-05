@@ -10,10 +10,9 @@ crs_audi:
   divider-color: "#777777" # Divider colour
   paper-card-header-color: "#FFFFFF" # Card header text colour
 
-
   # Paper Item #
   paper-item-icon-color: "#FF3030" # Icon colour
-  paper-item-icon-active-color: "#55FF55"
+  paper-item-icon-active-color: "#FFFFFF" #55FF55
 
   # Nav Menu #
   paper-listbox-background-color: "#FFFFFF" # Listbox background colour

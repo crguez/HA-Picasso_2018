@@ -1,0 +1,13 @@
+  verja:
+    state: false
+    name: Verja abierta
+    done_message: Verja cerrada
+    entity_id: binary_sensor.window_door_sensor
+    state: 'on'
+    repeat: 
+    - 1
+    - 15
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - telegram

@@ -126,14 +126,18 @@ panel_iframe:
   terminal:
     title: Terminal
     icon: mdi:console
-    url: https://localhost:7681
+    url: https://192.168.2.150:7681
   tasmoadmin:
     title: Sonoffs
     icon: mdi:lightbulb-on
-    url: https://localhost:9541
+    url: https://192.168.2.150:9541
+  ide:
+    title: Cloud9 IDE
+    icon: mdi:code-braces
+    url: https://192.168.2.150:9321
 #==== INCLUDE ====================================
 cover: !include covers.yaml
-group: !include groups.yaml
+#group: !include groups.yaml
 sensor: !include sensors.yaml
 media_player: !include media_players.yaml
 notify: !include notifiers.yaml
@@ -145,7 +149,7 @@ scene: !include scenes.yaml
 input_number: !include input_number.yaml
 input_boolean: !include input_boolean.yaml
 input_select: !include input_select.yaml
-tradfri: !include tradfri.yaml
+# tradfri: !include tradfri.yaml
 # panel_custom: !include panel_custom.yaml
 google_assistant: !include google_ass.yaml
 light: !include light.yaml
@@ -154,6 +158,8 @@ script: !include scripts.yaml
 weather: !include weather.yaml
 mqtt: !include mqtt.yaml
 cast: !include cast.yaml
+#alert: !include alert.yaml
+
 #=== DISABLES ====================================
 #introduction:
 #=== ENABLES =====================================
@@ -162,7 +168,6 @@ cloud:
 config:
 map:
 #ios: # Da un error en configuración => Pendiente de arreglar
-config:
 discovery:
 conversation: # Allows you to issue voice commands from the frontend in enabled browsers
   # boolean_test:

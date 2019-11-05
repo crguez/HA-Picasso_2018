@@ -1,3 +1,516 @@
+#################################################
+# CUBO AQARA
+#################################################
+  - id: luces_fuera
+    alias: Luces fuera
+    trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 7007 # Shake
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: 
+          - light.luces_peques
+          - light.luz_escalera
+          - light.luces_exteriores
+          - light.luz_trasera
+          transition: 10
+  - id: cubo_june
+    alias: Cubo June
+    trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 2001
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 2003
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 2004
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 2006
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 2005
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        message: 'Yune'
+        language: 'es'
+  - id: cubo_ibai
+    alias: Cubo Ibai
+    trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 3001
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 3006
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 3002
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 3005
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 3004
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        message: 'Ibai'
+        language: 'es'
+  - id: cubo_eider
+    alias: Cubo eider
+    trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 4001
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 4006
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 4002
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 4005
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 4003
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        message: 'Eider'
+        language: 'es'
+  - id: cubo_escalera
+    alias: Cubo escalera
+    trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 6002
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 6005
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 6003
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 6004
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 6001
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        message: 'Escalera'
+        language: 'es'
+  - id: cubo_lamparita
+    alias: Cubo lamparita
+    trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 5006
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 5001
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 5003
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 5004
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 5002
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        message: 'Lamparita'
+        language: 'es'
+  - id: cubo_modo_noche
+    alias: Cubo modo noche
+    trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 1003
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 1004
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 1002
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 1005
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 1006
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        message: 'Modo noche'
+        language: 'es'
+#-------------------------------------------------
+  - id: caida_cubo
+    alias: Caída cubo
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 7008
+    action:
+      - service: script.turn_on
+        entity_id: script.caida
+#-------------------------------------------------
+  - id: encender_luz_lamparita_ibai
+    alias: Encender luz lamparita Ibai
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 5005
+    condition:
+      condition: state
+      entity_id: light.luz_lamparita_ibai
+      state: 'off'
+    action:
+      - service: light.turn_on
+        data: 
+          entity_id: light.luz_lamparita_ibai
+          brightness: 5
+  - id: apagar_luz_lamparita_ibai
+    alias: Apagar luz lamparita Ibai
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 5005
+    condition:
+      condition: state
+      entity_id: light.luz_lamparita_ibai
+      state: 'on'
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: light.luz_lamparita_ibai
+  - id: subir_luz_lamparita_ibai
+    alias: Subir luz lamparita Ibai
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 5000
+    action:
+      - service: light.turn_on
+        data: 
+          entity_id: light.luz_lamparita_ibai
+          brightness: 255
+#----------------------------------------
+  - id: encender_luz_ibai
+    alias: Encender luz Ibai
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 3003
+    condition:
+      condition: state
+      entity_id: light.luz_ibai
+      state: 'off'
+    action:
+      - service: light.turn_on
+        data: 
+          entity_id: light.luz_ibai
+          brightness: 5
+  - id: apagar_luz_ibai
+    alias: Apagar luz Ibai
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 3003
+    condition:
+      condition: state
+      entity_id: light.luz_ibai
+      state: 'on'
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: light.luz_ibai
+  - id: subir_luz_ibai
+    alias: Subir luz Ibai
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 3000
+    action:
+      - service: light.turn_on
+        data: 
+          entity_id: light.luz_ibai
+          brightness: 255          
+#----------------------------------------
+  - id: encender_luz_june
+    alias: Encender luz June
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 2002
+    condition:
+      condition: state
+      entity_id: light.luz_june
+      state: 'off'
+    action:
+      - service: light.turn_on
+        data: 
+          entity_id: light.luz_june
+          brightness: 5
+  - id: apagar_luz_june
+    alias: Apagar luz June
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 2002
+    condition:
+      condition: state
+      entity_id: light.luz_june
+      state: 'on'
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: light.luz_june
+  - id: subir_luz_june
+    alias: Subir luz June
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 2000
+    action:
+      - service: light.turn_on
+        data: 
+          entity_id: light.luz_june
+          brightness: 255          
+#----------------------------------------
+  - id: encender_luz_eider
+    alias: Encender luz Eider
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 4004
+    condition:
+      condition: state
+      entity_id: light.luz_eider
+      state: 'off'
+    action:
+      - service: light.turn_on
+        data: 
+          entity_id: light.luz_eider
+          brightness: 5
+  - id: apagar_luz_june
+    alias: Apagar luz Eider
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 4004
+    condition:
+      condition: state
+      entity_id: light.luz_eider
+      state: 'on'
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: light.luz_eider
+  - id: subir_luz_eider
+    alias: Subir luz Eider
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 4000
+    action:
+      - service: light.turn_on
+        data: 
+          entity_id: light.luz_eider
+          brightness: 255          
+#----------------------------------------
+  - id: encender_luz_escalera
+    alias: Encender luz escalera
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 6006
+    condition:
+      condition: state
+      entity_id: light.luz_escalera
+      state: 'off'
+    action:
+      - service: light.turn_on
+        data: 
+          entity_id: light.luz_escalera
+          brightness: 5
+  - id: apagar_luz_escalera
+    alias: Apagar luz escalera
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 6006
+    condition:
+      condition: state
+      entity_id: light.luz_escalera
+      state: 'on'
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: light.luz_escalera
+  - id: subir_luz_escalera
+    alias: Subir luz escalera
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: cubo_1
+        event: 6000
+    action:
+      - service: light.turn_on
+        data: 
+          entity_id: light.luz_escalera
+          brightness: 255          
+#################################################
+# VERJA
+#################################################
+  - alias: "Verja abierta"
+    id: verja_abierta
+    initial_state: on
+    trigger: 
+    - platform: state
+      entity_id: binary_sensor.window_door_sensor
+      from: 'off'
+      to: 'on'
+    action:
+    - service: script.turn_on
+      entity_id: script.verja_olvidada1
+  - alias: "Verja cerrada"
+    id: verja_cerrada
+    initial_state: on
+    trigger: 
+    - platform: state
+      entity_id: binary_sensor.window_door_sensor
+      from: 'on'
+      to: 'off'
+    action:
+    - service: script.turn_off
+      entity_id: 
+      - script.verja_olvidada1
+      - script.verja_olvidada2
+#################################################
+# Temporizadores
+#################################################
   - alias: "Timer Start"
     id: timer_start
     trigger:
@@ -31,8 +544,56 @@
       platform: homeassistant
       event: start
     action:
-      service: script.turn_on
+    - service: script.turn_on
       entity_id: script.reiniciando_ha   
+    - service: frontend.set_theme
+      data:
+        name: crs_audi
+#################################################
+# LUCES ESCALERAS CON DETECTOR PRESENCIA
+#################################################
+  - alias: 'Entrada escalera'
+    id: entrada_escalera
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.motion_sensor
+        from: 'off'
+        to: 'on'
+    condition:
+      - condition: numeric_state
+        entity_id: sensor.light_sensor
+        below: 25
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: 
+          - light.luz_escalera_3
+          - light.luz_escalera_2
+          - light.luz_escalera_1
+          brightness: 255
+          transition: 5
+#      - service: script.turn_on
+#        entity_id: script.encender_luces_escalera
+#-------------------------------------------------
+  - alias: 'Salida escalera'
+    id: salida_escalera
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.motion_sensor
+        from: 'on'
+        to: 'off'
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: 
+          - light.luz_escalera_3
+          - light.luz_escalera_2
+          - light.luz_escalera_1
+          transition: 5
+#      - service: script.turn_on
+#        entity_id: script.apagar_luces_escalera
 #################################################
 # DETECCION PRESENCIA EN DESPACHO
 #################################################
@@ -135,7 +696,7 @@
 #################################################
   - alias: Set dark theme for the night
     id: Theme_night
-    initial_state: True
+    initial_state: False
     trigger:
     - platform: time
       at: '21:00'
@@ -153,7 +714,6 @@
     - service: frontend.set_theme
       data:
         name: default
-
 #################################################
 # ARBOL DE NAVIDAD
 #################################################
@@ -216,7 +776,6 @@
       entity_id:
       #- switch.enchufe_arbol
       - light.luz_arbol_navidad
-
 #################################################
 # PERSIANAS
 #################################################
@@ -244,110 +803,106 @@
       entity_id: script.bajando_persianas      
 
 #################################################
-# RAIN
+# LLUVIA
+# automation: paso_a_lluvia
+#  triggered: state change of moisture
+#             state change of tiempo_condition
+#     action: turn_on input_boolean.its_raining
+#------------------------------------------------
+# automation: paso_desde_lluvia
+#  triggered: state change of tiempo_condition
+#     action: turn_off input_boolean.its_raining
+#------------------------------------------------
+# automation: inicio_lluvia
+#  triggered: state change of input_boolean.its_raining 'off'>'on'
+#     action: script.inicio_lluvia
+#------------------------------------------------
+# automation: paro_lluvia
+#  triggered: state change of input_boolean.its_raining 'on'>'off'
+#     action: script.paro_lluvia
 #################################################
-# INICIO DE LLUVIA:
-  - alias: Inicio lluvia
-    id: Inicio Lluvia
-    initial_state: True
-    trigger:
-    - platform: state
-      entity_id: sensor.tiempo_condition
-      to: 'lluvia moderada'
-    - platform: state
-      entity_id: sensor.tiempo_condition
-      to: 'chubasco'
-    - platform: state
-      entity_id: sensor.tiempo_condition
-      to: 'llovizna ligera'
-    - platform: state
-      entity_id: sensor.tiempo_condition
-      to: 'lluvia ligera'
-    - platform: state
-      entity_id: sensor.tiempo_condition
-      to: 'lluvia intensa'
-    action:
-    - service: script.turn_on
-      data:
-        entity_id: script.inicio_lluvia
-# PARO DE LLUVIA
-  - alias: paso_desde_lluvia
-    id: Paso desde lluvia
-    initial_state: True
-    trigger:
-    - platform: state
-      entity_id: input_selector.weather_condition
-      to: soleado
-#        - algo de nubes
-#        - soleado
-#        - nubes dispersas
-#        - nubes rotas
-    action: 
-    - service: input_boolean.turn_off
-      entity_id: input_boolean.its_raining
+# INICIO DE LLUVIA => Eventos
   - alias: paso_a_lluvia
     id: Paso a lluvia
-    initial_state: True
-    trigger:
-    - platform: state
-      entity_id: input_selector.weather_condition
-      to: 'lluvia intensa'
-#      - 'lluvia moderada'
-#      - 'chubasco'
-#      - 'llovizna ligera'
-#      - 'lluvia ligera'
-#      - 'lluvia intensa'      
-    action:
-    - service: input_boolean.turn_on
-      entity_id: input_boolean.its_raining
-  - alias: Paro lluvia
-    id: Paro Lluvia
-    initial_state: True
-    trigger:
-    - platform: state
-      entity_id: sensor.tiempo_condition
-      to: 'algo de nubes'
-    - platform: state
-      entity_id: sensor.tiempo_condition
-      to: 'soleado'
-    - platform: state
-      entity_id: sensor.tiempo_condition
-      to: 'nubes dispersas'
-    - platform: state
-      entity_id: sensor.tiempo_condition
-      to: 'nubes rotas'
-    action:
-    - service: script.turn_on
-      data:
-        entity_id: script.paro_lluvia
-# AUTOMATIZACIONES ASOCIADAS                  => CREO QUE NO SE USA
-  - alias: Bajar persianas con lluvia
-    id: Persianas_lluvia
     initial_state: True
     trigger:
     - platform: state
       entity_id: binary_sensor.moisture
       from: 'off'
       to: 'on'
+    - platform: state
+#     entity_id: input_select.weather_condition
+      entity_id: sensor.tiempo_condition
+      to: 'llovizna ligera'
+    - platform: state
+#     entity_id: input_select.weather_condition
+      entity_id: sensor.tiempo_condition
+      to: 'lluvia ligera'
+    - platform: state
+#     entity_id: input_select.weather_condition
+      entity_id: sensor.tiempo_condition
+      to: 'lluvia moderada'
+    - platform: state
+#     entity_id: input_select.weather_condition
+      entity_id: sensor.tiempo_condition
+      to: 'lluvia intensa'
+    - platform: state
+#     entity_id: input_select.weather_condition
+      entity_id: sensor.tiempo_condition
+      to: 'chubasco'
     action:
-    - service: cover.close_cover
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.its_raining
+# INICIO DE LLUVIA => Reacción
+  - alias: Inicio lluvia
+    id: inicio_lluvia
+    initial_state: True
+    trigger:
+    - platform: state
+      entity_id: input_boolean.its_raining
+      from: 'off'
+      to: 'on'
+    action:
+    - service: script.turn_on
       data:
-        entity_id:
-        - cover.persiana_salon_puerta_pasillo
-        - cover.persiana_salon_ventana_pasillo
-        - cover.persiana_suite_vestidor
-        - cover.persiana_suite_derecha
-        - cover.persiana_suite_izquierda
-        - cover.persiana_suite_central
-        - cover.persiana_bano_lavabo
-        - cover.persiana_bano_puerta
-        - cover.persianas_cocina
-        - cover.persiana_eider
-    - service: notify.telegram
+        entity_id: script.inicio_lluvia
+# PARO DE LLUVIA => Eventos
+  - alias: Paso desde lluvia
+    id: paso_desde_lluvia
+    initial_state: True
+    trigger:
+    - platform: state
+#     entity_id: input_select.weather_condition
+      entity_id: sensor.tiempo_condition
+      to: nubes rotas
+    - platform: state
+#     entity_id: input_select.weather_condition
+      entity_id: sensor.tiempo_condition
+      to: nubes dispersas
+    - platform: state
+#     entity_id: input_select.weather_condition
+      entity_id: sensor.tiempo_condition
+      to: algo de nubes
+    - platform: state
+#     entity_id: input_select.weather_condition
+      entity_id: sensor.tiempo_condition
+      to: soleado
+    action: 
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.its_raining
+# PARO DE LLUVIA => Reacción
+  - alias: Paro lluvia
+    id: Paro Lluvia
+    initial_state: True
+    trigger:
+    - platform: state
+      entity_id: input_boolean.its_raining
+      from: 'on'
+      to: 'off'
+    action:
+    - service: script.turn_on
       data:
-        message: ¡Está lloviendo en casa! Yo bajo las persianas, tú recoge la ropa.
-        title: "*Home Assistant*"
-
+        entity_id: script.paro_lluvia
 #################################################
 # TV SUITE
 #################################################
@@ -428,20 +983,6 @@
       service: switch.turn_off
       entity_id:
       - switch.enchufe_despacho
-#################################################
-# ALIVE HOMEASSISTANT => Quitamos por repetición de evento
-#################################################
-#  - alias: Arranque HomeAssistant
-#    id: HA_On
-#    initial_state: True
-#    trigger:
-#      platform: homeassistant
-#      event: start
-#    action:
-#      - service: notify.telegram
-#        data: 
-#          title: '*Home Assistant*'
-#          message: 'Reiniciado.'
 #################################################
 # ALIVE ARDUINO
 #################################################
@@ -654,6 +1195,14 @@
       data_template:
         entity_id: '{{ trigger.event.data.entity_id4 }}'
         value: '{{ trigger.event.data.value4 }}'
+    - service_template: '{{ trigger.event.data.service5 }}'
+      data_template:
+        entity_id: '{{ trigger.event.data.entity_id5 }}'
+        value: '{{ trigger.event.data.value5 }}'
+    - service_template: '{{ trigger.event.data.service6 }}'
+      data_template:
+        entity_id: '{{ trigger.event.data.entity_id6 }}'
+        value: '{{ trigger.event.data.value6 }}'
 
 #################################################
 # ALIVE CHALLENGE

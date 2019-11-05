@@ -1,20 +1,103 @@
+  encender_luces_escalera:
+    alias: Encender luces escalera
+    sequence:
+      - service: light.turn_on
+        data:
+          entity_id: 
+          - light.luz_escalera_1
+          - light.luz_escalera_2
+          - light.luz_escalera_3
+          brightness: 50%
+  apagar_luces_escalera:
+    alias: Apagar luces escalera
+    sequence:
+      - service: light.turn_off
+        data:
+          entity_id: 
+          - light.luz_escalera_3
+          - light.luz_escalera_2
+          - light.luz_escalera_1
+#######################################
+# Caída cubo          
+#######################################
+  caida:
+    alias: Caída
+    sequence:
+    - service: media_player.turn_on
+      data:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+    - service: media_player.volume_set
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        volume_level: 0.90
+    - service: tts.google_say
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        message: '¡Uy! Eso me ha dolido mucho.'
+        language: 'es'
+    - delay: '00:00:10'
+    - service: media_player.volume_set
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        volume_level: 0.30    
+#####################################################################
+# Secuencia de avisos de verja olvidada
+#####################################################################
+  verja_olvidada1:
+    alias: Verja olvidada abierta 1
+    sequence:
+    - delay: '00:01:00'
+    - service: notify.telegram
+      data:
+        message: "¡Atención! La verja se ha quedado abierta."
+        title: "*Home Assistant*"
+    - service: script.turn_on
+      entity_id: script.verja_olvidada2
+  verja_olvidada2:
+    alias: Verja olvidada abierta 2
+    sequence:
+    - service: media_player.turn_on
+      data:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+    - service: media_player.volume_set
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        volume_level: 0.90
+    - service: tts.google_say
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        message: '¡Atención! La verja se ha quedado abierta.'
+        language: 'es'
+    - delay: '00:00:10'
+    - service: media_player.volume_set
+      data_template:
+        entity_id: 
+        - media_player.google_home_despacho
+        - media_player.google_home_salon
+        volume_level: 0.30    
+    - service: script.turn_on
+      entity_id: script.verja_olvidada1
+#####################################################################
   paro_lluvia:
     alias: Paro lluvia
     sequence:
-    - service: logbook.log
-      data_template:
-        name: HA Picasso
-        message: Script Run
-        # Optional
-        domain: script
-        entity_id: script.paro_lluvia
-#    - condition: state # ya viene disparado por el weather condition
-#      entity_id: binary_sensor.raining
-#      state: 'on'
-#    - service: binary_sensor.turn_off
-#      data:
-#        entity_id:
-#        - binary_sensor.raining  
+    - condition: time
+      before: '21:30:00'
+      after: '08:00:00'
     - service: media_player.turn_on
       data:
         entity_id: 
@@ -44,20 +127,26 @@
   inicio_lluvia:
     alias: Inicio lluvia
     sequence:
-    - service: logbook.log
-      data_template:
-        name: HA Picasso
-        message: Script Run
-        # Optional
-        domain: script
-        entity_id: script.inicio_lluvia
-#    - condition: state
-#      entity_id: binary_sensor.moisture
-#      state: 'off'
-#    - service: binary_sensor.turn_on
-#      data:
-#        entity_id:
-#        - binary_sensor.moisture
+    - service: cover.close_cover
+      data:
+        entity_id:
+        - cover.persiana_salon_puerta_pasillo
+        - cover.persiana_salon_ventana_pasillo
+        - cover.persiana_suite_vestidor
+        - cover.persiana_suite_derecha
+        - cover.persiana_suite_izquierda
+        - cover.persiana_suite_central
+        - cover.persiana_bano_lavabo
+        - cover.persiana_bano_puerta
+        - cover.persianas_cocina
+        - cover.persiana_eider
+    - service: notify.telegram
+      data:
+        message: "¡Está lloviendo en casa! Yo bajo las persianas, tú recoge la ropa."
+        title: "*Home Assistant*"
+    - condition: time
+      before: '21:30:00'
+      after: '08:00:00'
     - service: media_player.turn_on
       data:
         entity_id: 
@@ -83,24 +172,6 @@
         - media_player.google_home_despacho
         - media_player.google_home_salon
         volume_level: 0.30    
-    - service: cover.close_cover
-      data:
-        entity_id:
-        - cover.persiana_salon_puerta_pasillo
-        - cover.persiana_salon_ventana_pasillo
-        - cover.persiana_suite_vestidor
-        - cover.persiana_suite_derecha
-        - cover.persiana_suite_izquierda
-        - cover.persiana_suite_central
-        - cover.persiana_bano_lavabo
-        - cover.persiana_bano_puerta
-        - cover.persianas_cocina
-        - cover.persiana_eider
-        - cover.persiana_despacho
-    - service: notify.telegram
-      data:
-        message: "¡Está lloviendo en casa! Yo bajo las persianas, tú recoge la ropa."
-        title: "*Home Assistant*"
   demo:
     alias: Modo demo
     sequence:
@@ -341,7 +412,6 @@
       data_template:
         name: Logbook test
         message: is being used
-        # Optional
         domain: script
         entity_id: script.add_logbook_entry
   test_script:
@@ -453,19 +523,3 @@
       - condition: state
         entity_id: input_boolean.debug_mode
         state: 'off'
-      - service: mqtt.publish
-        data:
-          topic: "Picasso/Actuador/Enchufe/04/set"
-          payload: "K|04|0"
-      - service: mqtt.publish
-        data:
-          topic: "Picasso/Actuador/Enchufe/03/set"
-          payload: "K|03|0"
-#      - service: mqtt.publish # Despacho
-#        data:
-#          topic: "Picasso/Actuador/Enchufe/02/set"
-#          payload: "K|02|0"
-#      - service: mqtt.publish # Salón
-#        data:
-#          topic: "Picasso/Actuador/Enchufe/01/set"
-#          payload: "K|01|0"
