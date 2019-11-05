@@ -12,11 +12,19 @@
     action:
       - service: light.turn_off
         data:
-          entity_id: 
-          - light.luces_peques
-          - light.luz_escalera
-          - light.luces_exteriores
-          - light.luz_trasera
+          entity_id: light.luces_peques
+          transition: 10
+      - service: light.turn_off
+        data:
+          entity_id: light.luz_escalera
+          transition: 10
+      - service: light.turn_off
+        data:
+          entity_id: light.luces_exteriores
+          transition: 10
+      - service: light.turn_off
+        data:
+          entity_id: light.luz_trasera
           transition: 10
   - id: cubo_june
     alias: Cubo June
